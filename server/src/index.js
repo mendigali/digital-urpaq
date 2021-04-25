@@ -12,12 +12,12 @@ const userSchemaRegister = Joi.object().keys({
   username: Joi.string()
     .alphanum()
     .min(4)
-    .max(100)
+    .max(64)
     .required(),
   password: Joi.string()
     .alphanum()
-    .min(3)
-    .max(30)
+    .min(8)
+    .max(64)
     .required(),
   user_type_id: Joi.number()
 });
@@ -26,12 +26,12 @@ const userSchemaLogin = Joi.object().keys({
   username: Joi.string()
     .alphanum()
     .min(4)
-    .max(100)
+    .max(64)
     .required(),
   password: Joi.string()
     .alphanum()
-    .min(3)
-    .max(30)
+    .min(8)
+    .max(64)
     .required()
 });
 
@@ -49,9 +49,7 @@ async function getUserByEmail(email) {
 
 app.post('/register', async (req, res) => {
   try {
-    // получаем данные
     const data = req.body;
-    // проверяем данные
     // const { err } = userSchemaRegister.validate(data);
     await Joi.validate(data, userSchemaRegister, async (err, value) => {
       if (err) {
@@ -61,7 +59,6 @@ app.post('/register', async (req, res) => {
           data: data
         });
       } else {
-        // запрос к бд
         let user = await getUserByUsername(data.username);
         if (user) {
           res.status(418).json({
