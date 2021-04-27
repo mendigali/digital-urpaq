@@ -96,6 +96,9 @@ We prefer kanban methodology for the project.We chose this method to help our te
 ## Milestone
 ## Week 1
 In the third week, in the period from 19.04 to 25.04, our team developed a database, wrote a backend and frontend for authorization and registration. The first step in creating a database was to create tables with attributes. Second, the tables have passed the normalization stage so that there are no many-to-many relationships. Next, using PostgreSQL, the database was implemented.
+
 The next step is to write the backend code for authorization and registration. We used Node.js as the main programming language. First, we checked the validity of the username, email, and password for registration. To do this, we used the Joi library, which allows us to use ready-made functions to check data for validity. Our code also checked the authorization data, that is, the presence of a username and password in the database to successfully log in to the site.
+
 The last plan is to create an authorization and registration page. At this stage, frameworks like React js and Material UI library were used. Using frameworks makes it easier to work with the frontend and reduces development time.
+
 During this week, we encountered difficulties both using the new libraries and the correct operation of the backend with the database. In order to avoid problems, we used the Internet like many others, looking for examples and comparing them with our own code to identify the error. In addition, not all team members were familiar with React js and the Material UI library. Our teamwork helped solve this problem by having one of us give some lessons on using frameworks.
