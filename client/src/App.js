@@ -1,28 +1,34 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Navbar from "./components/Navbar";
+import NotFound from "./pages/NotFound";
+import { CssBaseline } from "@material-ui/core";
+import "./styles/App.css";
+import QuestionsList from "./pages/QuestionsList";
+import Question from "./pages/Question";
 
-function App() {
+export default function App() {
   return (
     <Router>
-      <Navbar />
+      <CssBaseline/>
+      <Navbar/>
       <Switch>
         <Route exact path="/signin">
-          <SignIn />
+          <SignIn/>
         </Route>
         <Route exact path="/signup">
-          <SignUp />
+          <SignUp/>
+        </Route>
+        <Route exact path="/questions">
+          <QuestionsList/>
+        </Route>
+        <Route path="/questions/:id" children={<Question/>}/>
+        <Route path="*">
+          <NotFound/>
         </Route>
       </Switch>
     </Router>
   );
 }
-
-export default App;

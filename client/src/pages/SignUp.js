@@ -7,7 +7,6 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
@@ -18,20 +17,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import { Controller, useForm } from "react-hook-form";
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+import Footer from "../components/Footer";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -61,29 +47,26 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SignUp() {
-  // const { register, handleSubmit, watch, formState: { errors } } = useForm();
-  const { control, errors: fieldsErrors } = useForm();
+
   const classes = useStyles();
-  const [age, setAge] = React.useState('');
+  const [userType, setUserType] = React.useState(1);
 
   const handleChange = (event) => {
-    setAge(event.target.value);
+    setUserType(event.target.value);
   };
 
-  const handleSubmit = () => {};
-  const onSubmit = () => {};
-  
+
   return (
     <Container component="main" maxWidth="xs">
-      <CssBaseline />
+      <CssBaseline/>
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
+          <LockOutlinedIcon/>
         </Avatar>
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <form className={classes.form} noValidate onSubmit={handleSubmit(onSubmit)}>
+        <form className={classes.form} noValidate>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -120,30 +103,15 @@ export default function SignUp() {
               />
             </Grid>
             <Grid item xs={12}>
-              <Controller
-                name="username"
-                as={
-                  <TextField
-                    variant="outlined"
-                    required
-                    fullWidth
-                    id="email"
-                    label="Username"
-                    name="email"
-                    autoComplete="email"
-                  />
-                }
-                control={control}
-                defaultValue=""
-                rules={{
-                  required: true,
-                  pattern: {
-                    value: /^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/,
-                    message: 'invalid username'
-                  }
-                }}
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="email"
+                label="Username"
+                name="email"
+                autoComplete="email"
               />
-
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -160,19 +128,16 @@ export default function SignUp() {
             <Grid item xs={12}>
               <FormControl className={classes.formControl}>
                 <InputLabel shrink id="demo-simple-select-placeholder-label-label">
-                  Type
-              </InputLabel>
+                  Type *
+                </InputLabel>
                 <Select
                   labelId="demo-simple-select-placeholder-label-label"
                   id="demo-simple-select-placeholder-label"
-                  value={age}
+                  value={userType}
                   onChange={handleChange}
                   displayEmpty
                   className={classes.selectEmpty}
                 >
-                  <MenuItem value="">
-                    <em>None</em>
-                  </MenuItem>
                   <MenuItem value={1}>Regular</MenuItem>
                   <MenuItem value={3}>Business</MenuItem>
                 </Select>
@@ -181,7 +146,7 @@ export default function SignUp() {
             </Grid>
             <Grid item xs={12}>
               <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
+                control={<Checkbox value="allowExtraEmails" color="primary"/>}
                 label="I want to receive inspiration, marketing promotions and updates via email."
               />
             </Grid>
@@ -197,16 +162,14 @@ export default function SignUp() {
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <Link href="#" variant="body2">
-                <RouterLink to="/signin">Already have an account? Sign in</RouterLink>
+              <Link component={RouterLink} href="#" variant="body2" to="/signin">
+                Already have an account? Sign in
               </Link>
             </Grid>
           </Grid>
         </form>
       </div>
-      <Box mt={5}>
-        <Copyright />
-      </Box>
+      <Footer/>
     </Container>
   );
 }

@@ -1,11 +1,10 @@
-import pg from 'pg';
+import * as pg from 'pg';
+const { Pool } = pg;
 
-const pool = new pg.Pool({
+export default new Pool({
     database: 'digital_urpaq',
     user: 'postgres',
     password: 'postgres',
     host: 'localhost',
     port: 5432
 });
-
-export default pool;
