@@ -94,41 +94,6 @@ Now, because of the quarantine, we do not have the opportunity to meet in person
 ## Project methodology 
 We prefer kanban methodology for the project.We chose this method to help our team reduce costs and become more efficient by visualizing and improving workflows. Thanks to the use of the Kanban board, we will improve our workflow. The essence of kanban is to divide the work into tasks and write each of them on cards. Then put the cards on the wall or board. Thus, Kanban will help us to facilitate planning, improve productivity, quality, and reduce production time.
 ## Timetable
-| Week                    |
-|-------------------------|
-|                         | Tasks                                                        | Expected start date | Finish date | Responsible team member |
-| 3                       |
-| (19.04.2021-25.04.2021) |  Create database                                             | 19.04.2021          | 25.04.2021  | Mendigali Temir         |
-|                         | Implement user authorization and authentication              |                     |             | Domolakova Tolkyn       |
-|                         | Create user registration and login pages                     |                     |             | Shukayeva Kundyz        |
-| 4                       |
-| (26.04.2021-02.05.2021) | Implement business logic of Q&A on backend                   | 26.04.2021          | 02.05.2021  | Mendigali Temir         |
-|                         | Implement business logic of Q&A on backend                   |                     |             | Domolakova Tolkyn       |
-|                         | Create Q&A page                                              |                     |             | Shukayeva Kundyz        |
-| 5                       |
-| (03.05.2021-09.05.2021) | Create Vacancies/internships page                            | 03.05.2021          | 09.05.2021  | Mendigali Temir         |
-|                         | Implement business logic of vacancies/internships on backend |                     |             | Domolakova Tolkyn       |
-|                         | Create Vacancies/internships page                            |                     |             | Shukayeva Kundyz        |
-| 6                       |
-| (10.05.2021-16.05.2021) | Implement business logic of Merch on backend                 | 10.05.2021          | 16.05.2021  | Mendigali Temir         |
-|                         | Implement business logic of Merch on backend                 |                     |             | Domolakova Tolkyn       |
-|                         | Create Merch page                                            |                     |             | Shukayeva Kundyz        |
-| 7                       |
-| (17.05.2021-23.05.2021) | Create Companies page                                        | 17.05.2021          | 23.05.2021  | Mendigali Temir         |
-|                         | Implement business logic of Companies on backend             |                     |             | Domolakova Tolkyn       |
-|                         | Create Companies page                                        |                     |             | Shukayeva Kundyz        |
-| 8                       |
-| (24.05.2021-30.05.2021) | Implement business logic of Home page on backend             | 24.05.2021          | 30.05.2021  | Mendigali Temir         |
-|                         | Implement business logic of Home page on backend             |                     |             | Domolakova Tolkyn       |
-|                         | Create Home page                                             |                     |             | Shukayeva Kundyz        |
-| 9                       |
-| (31.05.2021-06.06.2021) |   Testing final website                                      | 31.05.2021          | 06.06.2021  | Mendigali Temir         |
-|                         | Modify the main page                                         |                     |             | Domolakova Tolkyn       |
-|                         |  Refine the design of the main page                          |                     |             | Shukayeva Kundyz        |
-| 10                      |
-| (07.06.2021-13.06.2021) | Fixing bugs in backend and frontend                          | 07.06.2021          | 13.06.2021  | Mendigali Temir         |
-|                         | Final documentation and presentation                         |                     |             | Domolakova Tolkyn       |
-|                         | Refine the website design                                    |                     |             | Shukayeva Kundyz        |
 
 ## Milestone
 ## Week 3
