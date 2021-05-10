@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
+/*import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';*/
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
@@ -12,12 +12,16 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { Link as RouterLink } from 'react-router-dom';
-import InputLabel from '@material-ui/core/InputLabel';
+/*import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import Footer from "../components/Footer";
+import Select from '@material-ui/core/Select';*/
+import Footer from '../components/Footer';
+import { Controller, useForm } from 'react-hook-form';
+import { register } from '../http/userAPI';
+import { observer } from 'mobx-react-lite';
+import { Context } from '../index';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -46,15 +50,26 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignUp() {
-
+const SignUp = observer(() => {
   const classes = useStyles();
-  const [userType, setUserType] = React.useState(1);
+
+  const { user } = useContext(Context);
+
+  const { control, handleSubmit } = useForm();
+
+  /*const [userType, setUserType] = React.useState(1);
 
   const handleChange = (event) => {
     setUserType(event.target.value);
-  };
+  };*/
 
+  const formSubmit = async (data) => {
+    console.log(data);
+    const newUser = await register(data);
+    console.log(newUser);
+    user.setIsAuth(true);
+    user.setUser(newUser.data);
+  };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -66,9 +81,9 @@ export default function SignUp() {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate onSubmit={handleSubmit(formSubmit)}>
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
+            {/*<Grid item xs={12} sm={6}>
               <TextField
                 autoComplete="fname"
                 name="firstName"
@@ -90,42 +105,76 @@ export default function SignUp() {
                 name="lastName"
                 autoComplete="lname"
               />
-            </Grid>
+            </Grid>*/}
             <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
+              <Controller
                 name="email"
-                autoComplete="email"
+                control={control}
+                defaultValue=""
+                render={({ field: { onChange, value }, fieldState: { error } }) => (
+                  <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    id="email"
+                    label="Email Address"
+                    autoComplete="email"
+                    value={value}
+                    onChange={onChange}
+                    error={!!error}
+                    helperText={error ? error.message : null}
+                  />
+                )}
+                rules={{ required: 'Email required' }}
               />
             </Grid>
             <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="email"
-                label="Username"
-                name="email"
-                autoComplete="email"
+              <Controller
+                name="username"
+                control={control}
+                defaultValue=""
+                render={({ field: { onChange, value }, fieldState: { error } }) => (
+                  <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    id="username"
+                    label="Username"
+                    autoComplete="username"
+                    value={value}
+                    onChange={onChange}
+                    error={!!error}
+                    helperText={error ? error.message : null}
+                  />
+                )}
+                rules={{ required: 'Username required' }}
               />
             </Grid>
             <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
+              <Controller
                 name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
+                control={control}
+                defaultValue=""
+                render={({ field: { onChange, value }, fieldState: { error } }) => (
+                  <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    name="password"
+                    label="Password"
+                    type="password"
+                    id="password"
+                    autoComplete="current-password"
+                    value={value}
+                    onChange={onChange}
+                    error={!!error}
+                    helperText={error ? error.message : null}
+                  />
+                )}
+                rules={{ required: 'Password required' }}
               />
             </Grid>
-            <Grid item xs={12}>
+            {/*<Grid item xs={12}>
               <FormControl className={classes.formControl}>
                 <InputLabel shrink id="demo-simple-select-placeholder-label-label">
                   Type *
@@ -143,13 +192,13 @@ export default function SignUp() {
                 </Select>
                 <FormHelperText>Please, choose type of your account</FormHelperText>
               </FormControl>
-            </Grid>
-            <Grid item xs={12}>
+            </Grid>*/}
+            {/*<Grid item xs={12}>
               <FormControlLabel
                 control={<Checkbox value="allowExtraEmails" color="primary"/>}
                 label="I want to receive inspiration, marketing promotions and updates via email."
               />
-            </Grid>
+            </Grid>*/}
           </Grid>
           <Button
             type="submit"
@@ -172,4 +221,6 @@ export default function SignUp() {
       <Footer/>
     </Container>
   );
-}
+});
+
+export default SignUp;

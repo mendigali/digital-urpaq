@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
@@ -8,8 +8,10 @@ import { CssBaseline } from "@material-ui/core";
 import "./styles/App.css";
 import QuestionsList from "./pages/QuestionsList";
 import Question from "./pages/Question";
+// import { Context } from './index';
 
 export default function App() {
+  // const { user } = useContext(Context);
   return (
     <Router>
       <CssBaseline/>

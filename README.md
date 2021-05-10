@@ -32,7 +32,7 @@ It is planned to create a website that will host current news from the IT world,
 ## Design
 The website will have 6 main pages: news blog, Q & A section, merch purchase, jobs and internships, courses, and startup ideas. There will be sections with registration and login to the site. It is also planned to create an admin panel that will regulate the operation of the site, add, edit, and delete information.
 
-![sitemap](documentation/sitemap.png)
+![sitemap](docs/sitemap.png)
 
 Picture 1. Digital Urpaq sitemap
 
@@ -41,7 +41,7 @@ The analysis of the subject area allows you to build a conceptual model. You nee
 “ERD or Entity-relationship model, a graphical representation of entities and their relationships to each other, typically used in computing in regard to the organization of data within databases”
 ## Entity and Attributes
 The first step in developing this project was defining the entities that will be stored in the database.
-* User
+* UserStore
 * Blog post
 * Merch
 * Vacancy
@@ -50,13 +50,13 @@ The first step in developing this project was defining the entities that will be
 * Cart
 ## Business rules
 * Each blog post can be written by only one user.
-* User can buy many merch items.
-* User can respond to many vacancies/internships.
-* User can create many vacancies/internships.
-* User can add many merch items.
-* User  can ask many questions.
-* User can write many comments.
-* User have one and only one cart.
+* UserStore can buy many merch items.
+* UserStore can respond to many vacancies/internships.
+* UserStore can create many vacancies/internships.
+* UserStore can add many merch items.
+* UserStore  can ask many questions.
+* UserStore can write many comments.
+* UserStore have one and only one cart.
 ## Attributes 
 * Regular users and admin have id,full name, date of birth, gender, phone number,address,email and password.
 * Business users have id,the name of the company, phone number,address,email and password.
@@ -67,7 +67,7 @@ The first step in developing this project was defining the entities that will be
 * Comment has id,question id,text and date time.
 * The cart has a number of products.
 
-![Entity relationship diagram](documentation/erd.png)
+![Entity relationship diagram](docs/erd.png)
 
 Picture 2. Entity relationship diagram
 
