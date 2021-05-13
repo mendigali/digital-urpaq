@@ -1,8 +1,8 @@
 import React from 'react';
-import { InputLabel, OutlinedInput } from "@material-ui/core";
-import FormControl from "@material-ui/core/FormControl";
-import { makeStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
+import { InputLabel, OutlinedInput } from '@material-ui/core';
+import FormControl from '@material-ui/core/FormControl';
+import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function VacancySimpleEditor() {
+const VacancySimpleEditor = () => {
   const classes = useStyles();
   const [values, setValues] = React.useState({
     text: '',
@@ -46,9 +46,11 @@ export default function VacancySimpleEditor() {
           labelWidth={80}
         />
       </FormControl>
-      <Button variant="contained" color="primary" style={{float: "right"}}>
+      <Button variant="contained" color="primary" style={{ float: 'right' }}>
         Add vacancy
       </Button>
     </form>
   );
-}
+};
+
+export default VacancySimpleEditor;

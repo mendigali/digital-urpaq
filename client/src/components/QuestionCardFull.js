@@ -1,15 +1,17 @@
-import React from "react";
-import { Card, CardContent, Divider } from "@material-ui/core";
-import Rating from "@material-ui/lab/Rating";
-import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
-import Answer from "./Answer";
-import SimpleAnswerEditor from "./SimpleAnswerEditor";
+import React, { useContext } from 'react';
+import { Card, CardContent, Divider } from '@material-ui/core';
+import Rating from '@material-ui/lab/Rating';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+import Answer from './Answer';
+import SimpleAnswerEditor from './SimpleAnswerEditor';
+import Moment from 'react-moment';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     minWidth: 250,
-    marginTop: 20
+    marginTop: 20,
+    padding: 20
   },
   bullet: {
     display: 'inline-block',
@@ -28,22 +30,9 @@ const useStyles = makeStyles((theme) => ({
   },
   answers: {
     display: 'flex',
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center"
-  },
-  expand: {
-    transform: 'rotate(0deg)',
-    marginLeft: 'auto',
-    transition: theme.transitions.create('transform', {
-      duration: theme.transitions.duration.shortest,
-    }),
-  },
-  expandOpen: {
-    transform: 'rotate(180deg)',
-  },
-  body: {
-    padding: 20
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   answersAmount: {
     marginTop: 30,
@@ -54,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function QuestionCardSmall(props) {
+const QuestionCardFull = (props) => {
   const classes = useStyles();
 
   return (
@@ -63,7 +52,9 @@ export default function QuestionCardSmall(props) {
         <div className={classes.header}>
           <Rating name="size-small" defaultValue={props.rating} precision={0.5} size="small" readOnly/>
           <Typography className={classes.title} color="textSecondary" gutterBottom>
-            {props.date}
+            <Moment format="HH:mm DD/MM/YYYY">
+              {props.date}
+            </Moment>
           </Typography>
         </div>
         <div className={classes.header}>
@@ -79,33 +70,33 @@ export default function QuestionCardSmall(props) {
             </Typography>
           </div>
         </div>
-        <div className={classes.body}>
-          <Typography paragraph className={classes.questionBody}>
-            {props.body}
-          </Typography>
-          <Divider/>
-          <Typography variant="h5" className={classes.answersAmount}>
-            Answers: {props.amountOfAnswers}
-          </Typography>
-          {
-            props.answers.map(({id, username, body, date}) => (
-              <>
-                <Answer
-                  key={id}
-                  username={username}
-                  body={body}
-                  date={date}
-                />
-                <Divider/>
-              </>
-            ))
-          }
-          <Typography variant="h5" className={classes.answersAmount}>
-            Your answer:
-          </Typography>
-          <SimpleAnswerEditor/>
-        </div>
+        <Typography paragraph className={classes.questionBody}>
+          {props.body}
+        </Typography>
+        <Divider/>
+        <Typography variant="h5" className={classes.answersAmount}>
+          Answers: {props.amountOfAnswers}
+        </Typography>
+        {
+          props.answers && props.answers.map(({ id, user_id, text, created_at }) => (
+            <>
+              <Answer
+                key={id}
+                username={user_id}
+                body={text}
+                date={created_at}
+              />
+              <Divider/>
+            </>
+          ))
+        }
+        <Typography variant="h5" className={classes.answersAmount}>
+          Your answer:
+        </Typography>
+        <SimpleAnswerEditor/>
       </CardContent>
     </Card>
   );
 };
+
+export default QuestionCardFull;

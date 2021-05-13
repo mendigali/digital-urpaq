@@ -13,7 +13,7 @@ module.exports = function (...fields) {
           break;
         case 'username':
           if (!isValidUsername(value) || !value) {
-            errors.push('USERNAME wrongGGGG!');
+            errors.push('Username is invalid!');
           }
           break;
         case 'password':
@@ -24,8 +24,12 @@ module.exports = function (...fields) {
       }
     });
     if (errors.length !== 0) {
-      return res.status(400).json({ message: 'Registration failed!', errors: [...errors] });
+      return res.status(400).json({
+        success: false,
+        message: 'Registration failed!',
+        errors: [...errors]
+      });
     }
     next();
   };
-}
+};

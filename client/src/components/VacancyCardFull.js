@@ -54,13 +54,13 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function VacancyCardSmall(props) {
+const VacancyCardSmall = props => {
   const classes = useStyles();
 
   return (
     <Card className={classes.root} key={props.id}>
       <CardContent>
-       
+
         <div className={classes.header}>
           <Typography variant="h5" component="h2">
             {props.title}
@@ -71,7 +71,7 @@ export default function VacancyCardSmall(props) {
           <Typography className={classes.userStyle} color="textSecondary"  gutterBottom>
             {props.username}
             </Typography>
-           
+
           <Typography className={classes.title} color="textSecondary" gutterBottom>
             {props.date}
           </Typography>
@@ -82,7 +82,7 @@ export default function VacancyCardSmall(props) {
             {props.salary}
           </Typography>
         </div>
-        
+
         <div className={classes.body}>
           <Typography paragraph className={classes.vacancyBody}>
             {props.body}
@@ -92,3 +92,5 @@ export default function VacancyCardSmall(props) {
     </Card>
   );
 };
+
+export default VacancyCardSmall;

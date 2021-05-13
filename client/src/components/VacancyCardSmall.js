@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function VacancyCardSmall(props) {
+const VacancyCardSmall = props => {
   const classes = useStyles();
 
   const [expanded, setExpanded] = React.useState(false);
@@ -54,16 +54,16 @@ export default function VacancyCardSmall(props) {
   };
 
   return (
-    
+
     <Card className={classes.root} key={props.key}>
       <CardContent>
-        
+
         <div className={classes.header}>
           <Link color="textPrimary" variant="h5" component={RouterLink} to={`/vacancy/${props.id}`}>{props.title}</Link>
-          
-         
+
+
         </div>
-        
+
         <div className={classes.header}>
           <Typography className={classes.title} color="textSecondary" gutterBottom>
             {props.username}
@@ -76,9 +76,11 @@ export default function VacancyCardSmall(props) {
           </Typography>
         </div>
       </CardContent>
- 
+
 
     </Card>
-    
+
   );
 };
+
+export default VacancyCardSmall;

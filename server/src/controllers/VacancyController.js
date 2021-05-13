@@ -5,12 +5,17 @@ class VacancyController {
     try {
       const vacancies = await Vacancy.getAll();
       res.json({
+        success: true,
         message: 'Successfully retrieved vacancies list!',
         amount: vacancies.length,
         data: vacancies
       });
     } catch (error) {
-      res.status(500).json({ message: 'Unknown error occurred while getting list of vacancies!' });
+      res.status(500).json({
+        success: false,
+        message: 'Unknown error occurred while getting list of vacancies!',
+        errors: ['Unknown error!']
+      });
     }
   }
 
@@ -19,11 +24,16 @@ class VacancyController {
       const { id } = req.params;
       const vacancy = await Vacancy.getById(id);
       res.json({
+        success: true,
         message: 'Successfully retrieved one vacancy!',
         data: vacancy
       });
     } catch (error) {
-      res.status(500).json({ message: 'Unknown error occurred while vacancy!' });
+      res.status(500).json({
+        success: false,
+        message: 'Unknown error occurred while vacancy!',
+        errors: ['Unknown error!']
+      });
     }
   }
 
@@ -54,11 +64,16 @@ class VacancyController {
         salary_max
       });
       res.json({
+        success: true,
         message: 'Vacancy successfully added!',
         data: newVacancy
       });
     } catch (error) {
-      res.status(500).json({ message: 'Unknown error occurred while adding vacancy to the database!' });
+      res.status(500).json({
+        success: false,
+        message: 'Unknown error occurred while adding vacancy to the database!',
+        errors: ['Unknown error!']
+      });
     }
   }
 }

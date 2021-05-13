@@ -1,8 +1,10 @@
-import React from 'react';
-import { InputLabel, OutlinedInput } from "@material-ui/core";
-import FormControl from "@material-ui/core/FormControl";
-import { makeStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
+import React, { useState } from 'react';
+import { InputLabel, OutlinedInput } from '@material-ui/core';
+import FormControl from '@material-ui/core/FormControl';
+import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import { Controller, useForm } from 'react-hook-form';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,35 +22,44 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SimpleAnswerEditor() {
+const SimpleAnswerEditor = () => {
   const classes = useStyles();
-  const [values, setValues] = React.useState({
-    text: '',
-    password: '',
-    weight: '',
-    weightRange: '',
-    showPassword: false,
-  });
-  const handleChange = (prop) => (event) => {
-    setValues({ ...values, [prop]: event.target.value });
-  };
+  const {control, handleSubmit} = useForm();
+
+  const submitAnswer = (data) => {
+
+  }
   return (
-    <form noValidate autoComplete="off">
+    <form noValidate autoComplete="off" onSubmit={handleSubmit(submitAnswer)}>
       {/*<TextField id="standard-basic" label="Your answer" />*/}
-      <FormControl fullWidth className={classes.margin} variant="outlined">
-        <InputLabel htmlFor="outlined-adornment-amount">Your answer</InputLabel>
-        <OutlinedInput
-          id="outlined-adornment-amount"
-          value={values.text}
-          multiline
-          rows={6}
-          onChange={handleChange('amount')}
-          labelWidth={60}
-        />
-      </FormControl>
+      <Controller
+        name="text"
+        control={control}
+        defaultValue=""
+        render={({ field: { onChange, value }, fieldState: { error } }) => (
+          <TextField
+            variant="outlined"
+            required
+            fullWidth
+            id="text"
+            label="Answer text"
+            autoComplete="email"
+            style={{marginBottom: 20, marginTop: 10}}
+            multiline
+            rows={6}
+            value={value}
+            onChange={onChange}
+            error={!!error}
+            helperText={error ? error.message : null}
+          />
+        )}
+        rules={{ required: 'Answer cannot be empty!' }}
+      />
       <Button variant="contained" color="primary">
         Submit your answer
       </Button>
     </form>
   );
-}
+};
+
+export default SimpleAnswerEditor;

@@ -1,18 +1,20 @@
-import React from 'react';
-import CssBaseline from '@material-ui/core/CssBaseline';
+import React, { useContext } from 'react';
 import Container from '@material-ui/core/Container';
-import VacancyCreate from "../components/VacancyCreate";
-import VacancyCardSmall from "../components/VacancyCardSmall";
-import vacancies from "../data/vacancy.json";
+import VacancyCreate from '../components/VacancyCreate';
+import VacancyCardSmall from '../components/VacancyCardSmall';
+import vacancies from '../data/vacancy.json';
+import { observer } from 'mobx-react-lite';
+import { Context } from '../index';
+import Footer from '../components/Footer';
 
-export default function VacanciesList() {
+const VacanciesList = observer(() => {
+  const { userStore } = useContext(Context);
   return (
     <React.Fragment>
-      <CssBaseline/>
       <Container maxWidth="md">
-          <VacancyCreate/>        
+        {userStore.isAuth === true && <VacancyCreate/>}
         {
-          vacancies.map(({id, title, date, salary, username}) => (
+          vacancies.map(({ id, title, date, salary, username }) => (
             <VacancyCardSmall
               key={id}
               id={id}
@@ -23,7 +25,10 @@ export default function VacanciesList() {
             />
           ))
         }
+        <Footer/>
       </Container>
     </React.Fragment>
   );
-}
+});
+
+export default VacanciesList;

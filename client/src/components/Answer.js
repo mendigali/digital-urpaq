@@ -1,7 +1,8 @@
 import React from 'react';
-import Typography from "@material-ui/core/Typography";
-import ReactMarkdown from "react-markdown";
-import { makeStyles } from "@material-ui/core/styles";
+import Typography from '@material-ui/core/Typography';
+import ReactMarkdown from 'react-markdown';
+import { makeStyles } from '@material-ui/core/styles';
+import Moment from 'react-moment';
 
 const useStyles = makeStyles({
   title: {
@@ -19,7 +20,7 @@ const useStyles = makeStyles({
   }
 });
 
-export default function Answer(props) {
+const Answer = props => {
   const classes = useStyles();
   return (
     <div className={classes.answer} key={props.key}>
@@ -28,7 +29,9 @@ export default function Answer(props) {
           {props.username}
         </Typography>
         <Typography className={classes.title} color="textSecondary" gutterBottom>
-          {props.date}
+          <Moment format="HH:mm DD/MM/YYYY">
+            {props.date}
+          </Moment>
         </Typography>
       </div>
       <ReactMarkdown className={classes.body}>
@@ -36,4 +39,6 @@ export default function Answer(props) {
       </ReactMarkdown>
     </div>
   );
-}
+};
+
+export default Answer;

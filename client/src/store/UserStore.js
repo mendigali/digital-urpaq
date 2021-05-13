@@ -1,9 +1,14 @@
 import { makeAutoObservable } from 'mobx';
 
 export default class UserStore {
+  isAuth = false;
+  user = {};
+
   constructor() {
-    this.isAuth = false;
-    this.user = {};
+    if (localStorage.getItem('user')) {
+      this.isAuth = true;
+      this.user = JSON.parse(localStorage.getItem('user'));
+    }
     makeAutoObservable(this);
   }
 

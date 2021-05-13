@@ -1,27 +1,20 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-/*import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';*/
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { Link as RouterLink } from 'react-router-dom';
-/*import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';*/
+import { Link as RouterLink, Redirect } from 'react-router-dom';
 import Footer from '../components/Footer';
 import { Controller, useForm } from 'react-hook-form';
 import { register } from '../http/userAPI';
 import { observer } from 'mobx-react-lite';
 import { Context } from '../index';
+import AuthErrors from '../components/AuthErrors';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -32,10 +25,10 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: theme.palette.primary.main,
   },
   form: {
-    width: '100%', // Fix IE 11 issue.
+    width: '100%',
     marginTop: theme.spacing(3),
   },
   submit: {
@@ -52,28 +45,31 @@ const useStyles = makeStyles((theme) => ({
 
 const SignUp = observer(() => {
   const classes = useStyles();
-
-  const { user } = useContext(Context);
-
+  const { userStore } = useContext(Context);
   const { control, handleSubmit } = useForm();
+  const [registrationErrors, setRegistrationErrors] = useState([]);
 
-  /*const [userType, setUserType] = React.useState(1);
-
-  const handleChange = (event) => {
-    setUserType(event.target.value);
-  };*/
-
-  const formSubmit = async (data) => {
+  const signUp = async (data) => {
     console.log(data);
     const newUser = await register(data);
     console.log(newUser);
-    user.setIsAuth(true);
-    user.setUser(newUser.data);
+    if (!newUser.success) {
+      userStore.setIsAuth(false);
+      userStore.setUser({});
+      setRegistrationErrors(newUser.errors);
+    } else {
+      userStore.setIsAuth(true);
+      userStore.setUser(newUser.data);
+      localStorage.setItem('user', JSON.stringify(newUser.data));
+    }
   };
+
+  if (userStore.isAuth) {
+    return <Redirect to="/questions"/>;
+  }
 
   return (
     <Container component="main" maxWidth="xs">
-      <CssBaseline/>
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon/>
@@ -81,31 +77,13 @@ const SignUp = observer(() => {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <form className={classes.form} noValidate onSubmit={handleSubmit(formSubmit)}>
+        <form className={classes.form} noValidate onSubmit={handleSubmit(signUp)}>
           <Grid container spacing={2}>
-            {/*<Grid item xs={12} sm={6}>
-              <TextField
-                autoComplete="fname"
-                name="firstName"
-                variant="outlined"
-                required
-                fullWidth
-                id="firstName"
-                label="First Name"
-                autoFocus
-              />
+            {registrationErrors.length > 0 &&
+            <Grid item xs={12}>
+              <AuthErrors errors={registrationErrors}/>
             </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="lastName"
-                label="Last Name"
-                name="lastName"
-                autoComplete="lname"
-              />
-            </Grid>*/}
+            }
             <Grid item xs={12}>
               <Controller
                 name="email"
@@ -119,6 +97,7 @@ const SignUp = observer(() => {
                     id="email"
                     label="Email Address"
                     autoComplete="email"
+                    autoFocus
                     value={value}
                     onChange={onChange}
                     error={!!error}
@@ -174,31 +153,6 @@ const SignUp = observer(() => {
                 rules={{ required: 'Password required' }}
               />
             </Grid>
-            {/*<Grid item xs={12}>
-              <FormControl className={classes.formControl}>
-                <InputLabel shrink id="demo-simple-select-placeholder-label-label">
-                  Type *
-                </InputLabel>
-                <Select
-                  labelId="demo-simple-select-placeholder-label-label"
-                  id="demo-simple-select-placeholder-label"
-                  value={userType}
-                  onChange={handleChange}
-                  displayEmpty
-                  className={classes.selectEmpty}
-                >
-                  <MenuItem value={1}>Regular</MenuItem>
-                  <MenuItem value={3}>Business</MenuItem>
-                </Select>
-                <FormHelperText>Please, choose type of your account</FormHelperText>
-              </FormControl>
-            </Grid>*/}
-            {/*<Grid item xs={12}>
-              <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary"/>}
-                label="I want to receive inspiration, marketing promotions and updates via email."
-              />
-            </Grid>*/}
           </Grid>
           <Button
             type="submit"

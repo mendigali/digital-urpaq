@@ -3,9 +3,9 @@ module.exports = class AnswerQuery {
     this.connection = connection;
   }
 
-  async getAll() {
-    const sql = 'SELECT * FROM reply';
-    const answers = await this.connection.query(sql);
+  async getAll(id) {
+    const sql = 'SELECT * FROM reply WHERE question_id = $1';
+    const answers = await this.connection.query(sql, [id]);
     return answers.rows;
   }
 

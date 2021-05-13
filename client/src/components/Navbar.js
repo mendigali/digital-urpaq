@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import { Link } from "react-router-dom";
-import { ButtonGroup } from "@material-ui/core";
+import { Link } from 'react-router-dom';
+import { authOnlyRoutes, publicAndAuthRoutes, publicOnlyRoutes } from '../utils/routes';
+import { Context } from '../index';
+import { observer } from 'mobx-react-lite';
 
 const useStyles = makeStyles({
   menuButton: {
@@ -13,6 +15,8 @@ const useStyles = makeStyles({
   },
   title: {
     flexGrow: 1,
+    textDecoration: 'none',
+    color: '#fff'
   },
   menuItems: {
     display: 'flex',
@@ -21,36 +25,57 @@ const useStyles = makeStyles({
   }
 });
 
-export default function Navbar() {
+const Navbar = observer(() => {
   const classes = useStyles();
+
+  const { userStore } = useContext(Context);
+
+  const logout = () => {
+    localStorage.removeItem('user');
+    window.location.reload();
+  }
 
   return (
     <AppBar position="static">
       <Toolbar>
-        <Typography variant="h6" className={classes.title}>
+        <Typography variant="h6" className={classes.title} component={Link} to="/questions">
           Digital Urpaq
         </Typography>
-        <Button
-          className={classes.menuButton}
-          component={Link}
-          to="/questions">
-          Questions
+        {publicAndAuthRoutes.map(({ navbarDisplay, navbarName, path }) =>
+          navbarDisplay &&
+          <Button
+            className={classes.menuButton}
+            component={Link}
+            to={path}>
+            {navbarName}
+          </Button>
+        )}
+        {userStore.isAuth === false && publicOnlyRoutes.map(({ navbarDisplay, navbarName, path }) =>
+          navbarDisplay &&
+          <Button
+            className={classes.menuButton}
+            component={Link}
+            to={path}>
+            {navbarName}
+          </Button>
+        )}
+        {userStore.isAuth === true && authOnlyRoutes.map(({ navbarDisplay, navbarName, path }) =>
+          navbarDisplay &&
+          <Button
+            className={classes.menuButton}
+            component={Link}
+            to={path}>
+            {navbarName}
+          </Button>
+        )}
+        {userStore.isAuth === true &&
+        <Button style={{marginLeft: 20}} color={'secondary'} variant={'contained'} onClick={logout}>
+          Logout
         </Button>
-        <ButtonGroup variant="text" color="primary" className={classes.menuButton}>
-          <Button
-            className={classes.menuButton}
-            component={Link}
-            to="/signin">
-            Sign In
-          </Button>
-          <Button
-            className={classes.menuButton}
-            component={Link}
-            to="/signup">
-            Sign Up
-          </Button>
-        </ButtonGroup>
+        }
       </Toolbar>
     </AppBar>
   );
-}
+});
+
+export default Navbar;
