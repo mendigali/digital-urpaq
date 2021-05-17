@@ -59,7 +59,7 @@ const SignIn = () => {
   };
 
   if (userStore.isAuth) {
-    return <Redirect to="/questions"/>;
+    return <Redirect to="/shop"/>;
   }
 
   return (

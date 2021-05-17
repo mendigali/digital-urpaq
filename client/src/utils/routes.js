@@ -6,6 +6,8 @@ import Question from '../pages/Question';
 import VacanciesList from '../pages/VacanciesList';
 import Vacancy from '../pages/Vacancy';
 import NotFound from '../pages/NotFound';
+import Shop from '../pages/Shop';
+import ShopProduct from '../pages/ShopProduct';
 
 export const authOnlyRoutes = [
   {
@@ -51,6 +53,17 @@ export const publicAndAuthRoutes = [
     component: Vacancy,
     navbarDisplay: false
   },
+  {
+    path: '/shop',
+    component: Shop,
+    navbarDisplay: true,
+    navbarName: 'Shop'
+  },
+  {
+    path: '/shop/:id',
+    component: ShopProduct,
+    navbarDisplay: false
+  }
   /*{
     path: '/notfound',
     component: NotFound,
