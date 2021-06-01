@@ -34,7 +34,7 @@ const Navbar = observer(() => {
   return (
     <AppBar position="sticky" elevation={0}>
       <Toolbar>
-        <Typography variant="h6" className={classes.title} component={Link} to="/shop">
+        <Typography variant="h6" className={classes.title} component={Link} to="/news">
           Digital Urpaq
         </Typography>
         {publicAndAuthRoutes.map(({ navbarDisplay, navbarName, path }) =>

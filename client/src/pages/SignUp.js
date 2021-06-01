@@ -65,7 +65,7 @@ const SignUp = observer(() => {
   };
 
   if (userStore.isAuth) {
-    return <Redirect to="/shop"/>;
+    return <Redirect to="/news"/>;
   }
 
   return (

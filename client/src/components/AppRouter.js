@@ -18,7 +18,7 @@ const AppRouter = observer(() => {
       {userStore.isAuth === true && authOnlyRoutes.map(({ path, component }) =>
         <Route exact path={path} component={component}/>
       )}
-      <Redirect to="/shop"/>
+      <Redirect to="/news"/>
     </Switch>
   );
 });
