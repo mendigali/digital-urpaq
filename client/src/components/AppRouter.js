@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
-import { Context } from '../index';
+import { Context } from '../App';
 import { authOnlyRoutes, publicAndAuthRoutes, publicOnlyRoutes } from '../utils/routes';
 import { observer } from 'mobx-react-lite';
 

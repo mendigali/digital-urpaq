@@ -1,6 +1,8 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import ReactMarkdown from 'react-markdown';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { coy, darcula, solarizedlight, coldarkCold, duotoneLight } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { makeStyles } from '@material-ui/core/styles';
 import Moment from 'react-moment';
 
@@ -16,12 +18,26 @@ const useStyles = makeStyles({
     marginTop: 20
   },
   body: {
-    fontSize: '1rem'
+    fontSize: '1rem',
+    borderRadius: '20px'
   }
 });
 
 const Answer = props => {
   const classes = useStyles();
+
+  const components = {
+    code({ node, inline, className, children, ...props }) {
+      const match = /language-(\w+)/.exec(className || '');
+      return !inline && match ? (
+        <SyntaxHighlighter style={darcula} language={match[1]} PreTag="div"
+                           children={String(children).replace(/\n$/, '')} {...props} />
+      ) : (
+        <code className={className} {...props} />
+      );
+    }
+  };
+
   return (
     <div className={classes.answer} key={props.key}>
       <div className={classes.header}>
@@ -34,9 +50,7 @@ const Answer = props => {
           </Moment>
         </Typography>
       </div>
-      <ReactMarkdown className={classes.body}>
-        {props.body}
-      </ReactMarkdown>
+      <ReactMarkdown className={classes.body} components={components} children={props.body}/>
     </div>
   );
 };

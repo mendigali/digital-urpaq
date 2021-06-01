@@ -10,12 +10,14 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import BackgroundImage from '../assets/charles-deluvio-FK81rxilUXg-unsplash.jpg';
 import { Paper } from '@material-ui/core';
-import { getAllProducts } from '../http/shopAPI';
-import { Context } from '../index';
+import { ShopAPI } from '../http';
+import { Context } from '../App';
 import { observer } from 'mobx-react-lite';
 import Footer from '../components/Footer';
 import { Link as RouterLink } from 'react-router-dom';
-
+import TrendingFlatRoundedIcon from '@material-ui/icons/TrendingFlatRounded';
+import ShoppingCartRoundedIcon from '@material-ui/icons/ShoppingCartRounded';
+import OpenInNewRoundedIcon from '@material-ui/icons/OpenInNewRounded';
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -26,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundImage: `url(${BackgroundImage})`,
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'auto 100vw',
-    padding: theme.spacing(8, 0, 6),
+    // padding: theme.spacing(8, 0, 6),
     height: '100vh',
     display: 'flex',
     justifyContent: 'center',
@@ -39,7 +41,6 @@ const useStyles = makeStyles((theme) => ({
   },
   cardGrid: {
     paddingTop: theme.spacing(8),
-    paddingBottom: theme.spacing(8),
   },
   card: {
     height: '100%',
@@ -62,8 +63,16 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
     padding: theme.spacing(6),
   },
+  imgOuter: {
+    backgroundColor: 'white',
+    height: '200px',
+    display: 'flex',
+    justifyContent: 'center'
+  },
+  imgInner: {
+    height: '100%'
+  }
 }));
-
 
 const Shop = observer(() => {
   const classes = useStyles();
@@ -71,15 +80,15 @@ const Shop = observer(() => {
   const { shopStore } = useContext(Context);
 
   const getProducts = async () => {
-    const response = await getAllProducts();
+    const response = await ShopAPI.getAllProducts();
     if (response.success) {
       shopStore.setProducts(response.data);
     }
-  }
+  };
 
-  const myRef = useRef(null)
+  const myRef = useRef(null);
 
-  const executeScroll = () => myRef.current.scrollIntoView({behavior: 'smooth'})
+  const executeScroll = () => myRef.current.scrollIntoView({ behavior: 'smooth' });
 
   useEffect(getProducts, []);
 
@@ -87,8 +96,9 @@ const Shop = observer(() => {
     <React.Fragment>
       <div className={classes.heroContent}>
         <Container maxWidth="md">
-          <Paper elevation={10} style={{backgroundColor: 'rgba(255, 255, 255, 0.7)', padding: 20}}>
-            <Typography component="h1" variant="h2" align="center" style={{fontWeight: 'bold'}} gutterBottom>
+          <Paper elevation={10} style={{ backgroundColor: 'rgba(0, 0, 0, 0.6)', padding: 20 }}>
+            <Typography color={'textPrimary'} component="h1" variant="h2" align="center" style={{ fontWeight: 'bold' }}
+                        gutterBottom>
               Digital Urpaq Shop
             </Typography>
             <Typography variant="h5" align="center" paragraph>
@@ -97,7 +107,8 @@ const Shop = observer(() => {
             <div className={classes.heroButtons}>
               <Grid container spacing={2} justify="center">
                 <Grid item>
-                  <Button variant="contained" color="primary" size={'large'} onClick={executeScroll}>
+                  <Button variant="contained" color="primary" size={'large'} onClick={executeScroll}
+                          endIcon={<TrendingFlatRoundedIcon/>}>
                     View products
                   </Button>
                 </Grid>
@@ -116,6 +127,9 @@ const Shop = observer(() => {
                   image={`http://localhost:5000/${product.image}`}
                   title={product.name}
                 />
+                {/*<div className={classes.imgOuter}>
+                  <img src={`http://localhost:5000/${product.image}`} alt="" className={classes.imgInner}/>
+                </div>*/}
                 <CardContent className={classes.cardContent}>
                   <Typography variant="subtitle1">
                     Price: ₸{product.price}
@@ -128,10 +142,11 @@ const Shop = observer(() => {
                   </Typography>
                 </CardContent>
                 <CardActions className={classes.cardActions}>
-                  <Button size="small" color="primary" component={RouterLink} to={`/shop/${product.id}`}>
+                  <Button size="small" color="primary" variant="outlined" component={RouterLink}
+                          to={`/shop/${product.id}`} startIcon={<OpenInNewRoundedIcon/>}>
                     View
                   </Button>
-                  <Button size="small" color="primary" variant="outlined">
+                  <Button size="small" color="primary" variant="contained" startIcon={<ShoppingCartRoundedIcon/>}>
                     Buy
                   </Button>
                 </CardActions>

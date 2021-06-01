@@ -1,9 +1,9 @@
-import React from "react";
-import { Card, CardContent, Collapse } from "@material-ui/core";
-import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
-import { Link as RouterLink } from "react-router-dom";
-import Link from "@material-ui/core/Link";
+import React from 'react';
+import { Card, CardContent } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+import { Link as RouterLink } from 'react-router-dom';
+import Link from '@material-ui/core/Link';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -28,9 +28,9 @@ const useStyles = makeStyles((theme) => ({
   },
   answers: {
     display: 'flex',
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center"
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   expand: {
     transform: 'rotate(0deg)',

@@ -13,8 +13,8 @@ import Container from '@material-ui/core/Container';
 import { Link as RouterLink, Redirect } from 'react-router-dom';
 import Footer from '../components/Footer';
 import { Controller, useForm } from 'react-hook-form';
-import { Context } from '../index';
-import { login } from '../http/userAPI';
+import { Context } from '../App';
+import { UserAPI } from '../http';
 import AuthErrors from '../components/AuthErrors';
 
 const useStyles = makeStyles((theme) => ({
@@ -46,7 +46,7 @@ const SignIn = () => {
   const { userStore } = useContext(Context);
 
   const signIn = async (data) => {
-    const user = await login(data);
+    const user = await UserAPI.login(data);
     if (!user.success) {
       userStore.setIsAuth(false);
       userStore.setUser({});

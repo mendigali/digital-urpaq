@@ -28,7 +28,7 @@ class UserController {
       return res.status(500).json({
         success: false,
         message: 'Unknown error occurred while user login!',
-        errors: ['Unknown error!']
+        errors: [error.message]
       });
     }
   }
@@ -55,7 +55,7 @@ class UserController {
       return res.status(500).json({
         success: false,
         message: 'Unknown error occurred while user login!',
-        errors: ['Unknown error!']
+        errors: [error.message]
       });
     }
   }

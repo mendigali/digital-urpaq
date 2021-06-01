@@ -13,7 +13,7 @@ module.exports = class QuestionQuery {
   }
 
   async getAll() {
-    const sql = 'SELECT * FROM question';
+    const sql = 'SELECT * FROM question ORDER BY created_at DESC';
     const questions = await this.connection.query(sql);
     return questions.rows;
   }

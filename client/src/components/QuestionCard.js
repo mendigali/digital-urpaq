@@ -1,17 +1,17 @@
-import React, { useContext } from 'react';
-import { Card, CardContent, Divider } from '@material-ui/core';
+import React from 'react';
+import { Card, CardActions, CardContent } from '@material-ui/core';
 import Rating from '@material-ui/lab/Rating';
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
-import Answer from './Answer';
-import SimpleAnswerEditor from './SimpleAnswerEditor';
+import { Link as RouterLink } from 'react-router-dom';
+import Link from '@material-ui/core/Link';
 import Moment from 'react-moment';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     minWidth: 250,
     marginTop: 20,
-    padding: 20
   },
   bullet: {
     display: 'inline-block',
@@ -34,16 +34,9 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'center'
   },
-  answersAmount: {
-    marginTop: 30,
-    marginBottom: 10
-  },
-  questionBody: {
-    marginBottom: 30
-  }
 }));
 
-const QuestionCardFull = (props) => {
+const QuestionCard = props => {
   const classes = useStyles();
 
   return (
@@ -58,9 +51,8 @@ const QuestionCardFull = (props) => {
           </Typography>
         </div>
         <div className={classes.header}>
-          <Typography variant="h5" component="h2">
-            {props.title}
-          </Typography>
+          <Link color="textPrimary" variant="h5" component={RouterLink}
+                to={`/questions/${props.id}`}>{props.title}</Link>
           <div className="answers">
             <Typography variant="h5" align="center">
               {props.amountOfAnswers}
@@ -70,33 +62,17 @@ const QuestionCardFull = (props) => {
             </Typography>
           </div>
         </div>
-        <Typography paragraph className={classes.questionBody}>
-          {props.body}
-        </Typography>
-        <Divider/>
-        <Typography variant="h5" className={classes.answersAmount}>
-          Answers: {props.amountOfAnswers}
-        </Typography>
-        {
-          props.answers && props.answers.map(({ id, user_id, text, created_at }) => (
-            <>
-              <Answer
-                key={id}
-                username={user_id}
-                body={text}
-                date={created_at}
-              />
-              <Divider/>
-            </>
-          ))
-        }
-        <Typography variant="h5" className={classes.answersAmount}>
-          Your answer:
-        </Typography>
-        <SimpleAnswerEditor/>
       </CardContent>
+      <CardActions>
+        <Button
+          component={RouterLink}
+          to={`/questions/${props.id}`}
+        >
+          View answers
+        </Button>
+      </CardActions>
     </Card>
   );
 };
 
-export default QuestionCardFull;
+export default QuestionCard;

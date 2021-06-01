@@ -6,8 +6,9 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 import { authOnlyRoutes, publicAndAuthRoutes, publicOnlyRoutes } from '../utils/routes';
-import { Context } from '../index';
+import { Context } from '../App';
 import { observer } from 'mobx-react-lite';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 const useStyles = makeStyles({
   menuButton: {
@@ -30,13 +31,8 @@ const Navbar = observer(() => {
 
   const { userStore } = useContext(Context);
 
-  const logout = () => {
-    localStorage.removeItem('user');
-    window.location.reload();
-  }
-
   return (
-    <AppBar position="static">
+    <AppBar position="sticky" elevation={0}>
       <Toolbar>
         <Typography variant="h6" className={classes.title} component={Link} to="/shop">
           Digital Urpaq
@@ -68,11 +64,6 @@ const Navbar = observer(() => {
             {navbarName}
           </Button>
         )}
-        {userStore.isAuth === true &&
-        <Button style={{marginLeft: 20}} color={'secondary'} variant={'contained'} onClick={logout}>
-          Logout
-        </Button>
-        }
       </Toolbar>
     </AppBar>
   );

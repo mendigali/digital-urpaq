@@ -23,4 +23,40 @@ module.exports = class UserQuery {
     const newUser = await this.connection.query(sql, data);
     return newUser.rows[0];
   }
+
+  async addPersonalInfo(info) {
+    const {
+      first_name,
+      second_name,
+      middle_name,
+      date_of_birth,
+      works_at_id,
+      photo,
+      user_id
+    } = info;
+    const sql = `
+        INSERT INTO personal_info 
+        (first_name, second_name, middle_name, date_of_birth, works_at_id, photo, user_id, created_at, updated_at) 
+        values ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *`;
+    const date = new Date().toISOString();
+    const data = [
+      first_name,
+      second_name,
+      middle_name,
+      date_of_birth,
+      works_at_id,
+      photo,
+      user_id,
+      date,
+      date
+    ];
+    const newPersonalInfo = await this.connection.query(sql, data);
+    return newPersonalInfo.rows[0];
+  }
+
+  async getPersonalInfo(user_id) {
+    const sql = 'SELECT * FROM personal_info WHERE user_id = $1';
+    const personalInfo = await this.connection.query(sql, [user_id]);
+    return personalInfo.rows[0];
+  }
 }

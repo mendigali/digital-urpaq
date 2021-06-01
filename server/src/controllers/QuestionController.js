@@ -14,7 +14,7 @@ class QuestionController {
       res.status(500).json({
         success: false,
         message: 'Unknown error occurred while getting questions list!',
-        errors: ['Unknown error!']
+        errors: [error.message]
       });
     }
   }
@@ -32,7 +32,7 @@ class QuestionController {
       res.status(500).json({
         success: false,
         message: 'Unknown error occurred while getting question!',
-        errors: ['Unknown error!']
+        errors: [error.message]
       });
     }
   }
@@ -50,7 +50,7 @@ class QuestionController {
       res.status(500).json({
         success: false,
         message: 'Unknown error occurred while inserting question to database!',
-        errors: ['Unknown error!']
+        errors: [error.message]
       });
     }
   }

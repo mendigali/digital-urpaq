@@ -1,46 +1,44 @@
 import React, { useContext, useEffect } from 'react';
 import Container from '@material-ui/core/Container';
-import QuestionCardSmall from '../components/QuestionCardSmall';
-import { getAllQuestions } from '../http/questionAPI';
-import { getAnswersByQuestionId } from '../http/answerAPI';
-import { Context } from '../index';
+import QuestionCard from '../components/QuestionCard';
+import { Context } from '../App';
 import { observer } from 'mobx-react-lite';
 import Footer from '../components/Footer';
+import QuestionCreate from '../components/QuestionCreate';
+import { AnswerAPI, QuestionAPI } from '../http';
 
 const QuestionsList = observer(() => {
-  const { questionStore } = useContext(Context);
+  const { questionStore, userStore } = useContext(Context);
 
   const getQuestions = async () => {
-    let questionsFromDb = await getAllQuestions();
-    for (const question of questionsFromDb.data) {
-      const answers = await getAnswersByQuestionId(question.id);
+    let questionsFromDb = await QuestionAPI.getAll();
+    for (let question of questionsFromDb.data) {
+      const answers = await AnswerAPI.getByQuestionId(question.id);
       question.answers = answers.data;
       question.amountOfAnswers = answers.amount;
     }
     questionStore.setQuestions(questionsFromDb.data);
-    console.log(questionStore);
   };
 
   useEffect(getQuestions, []);
 
   return (
-    <React.Fragment>
-      <Container maxWidth="md">
-        {
-          questionStore.questions.map(({ id, title, created_at, difficulty, amountOfAnswers }) => (
-            <QuestionCardSmall
-              key={id}
-              id={id}
-              title={title}
-              date={created_at}
-              rating={difficulty}
-              amountOfAnswers={amountOfAnswers}
-            />
-          ))
-        }
-        <Footer/>
-      </Container>
-    </React.Fragment>
+    <Container maxWidth="md">
+      {userStore.isAuth === true && <QuestionCreate/>}
+      {
+        questionStore.questions.map(({ id, title, created_at, difficulty, amountOfAnswers }) => (
+          <QuestionCard
+            key={id}
+            id={id}
+            title={title}
+            date={created_at}
+            rating={difficulty}
+            amountOfAnswers={amountOfAnswers}
+          />
+        ))
+      }
+      <Footer/>
+    </Container>
   );
 });
 

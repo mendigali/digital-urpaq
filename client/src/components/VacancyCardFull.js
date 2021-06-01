@@ -1,7 +1,7 @@
-import React from "react";
-import { Card, CardContent, Divider } from "@material-ui/core";
-import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
+import React from 'react';
+import { Card, CardContent } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,9 +25,9 @@ const useStyles = makeStyles((theme) => ({
   },
   answers: {
     display: 'flex',
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center"
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   expand: {
     transform: 'rotate(0deg)',
@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
   vacancyBody: {
     marginBottom: 30
   },
-  userStyle:{
+  userStyle: {
     paddingLeft: 20
   }
 }));
@@ -68,9 +68,9 @@ const VacancyCardSmall = props => {
         </div>
 
         <div className={classes.header}>
-          <Typography className={classes.userStyle} color="textSecondary"  gutterBottom>
+          <Typography className={classes.userStyle} color="textSecondary" gutterBottom>
             {props.username}
-            </Typography>
+          </Typography>
 
           <Typography className={classes.title} color="textSecondary" gutterBottom>
             {props.date}

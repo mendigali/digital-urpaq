@@ -11,9 +11,9 @@ import Container from '@material-ui/core/Container';
 import { Link as RouterLink, Redirect } from 'react-router-dom';
 import Footer from '../components/Footer';
 import { Controller, useForm } from 'react-hook-form';
-import { register } from '../http/userAPI';
+import { UserAPI } from '../http';
 import { observer } from 'mobx-react-lite';
-import { Context } from '../index';
+import { Context } from '../App';
 import AuthErrors from '../components/AuthErrors';
 
 const useStyles = makeStyles((theme) => ({
@@ -51,7 +51,7 @@ const SignUp = observer(() => {
 
   const signUp = async (data) => {
     console.log(data);
-    const newUser = await register(data);
+    const newUser = await UserAPI.register(data);
     console.log(newUser);
     if (!newUser.success) {
       userStore.setIsAuth(false);

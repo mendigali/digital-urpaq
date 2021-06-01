@@ -5,15 +5,29 @@ import QuestionsList from '../pages/QuestionsList';
 import Question from '../pages/Question';
 import VacanciesList from '../pages/VacanciesList';
 import Vacancy from '../pages/Vacancy';
-import NotFound from '../pages/NotFound';
 import Shop from '../pages/Shop';
 import ShopProduct from '../pages/ShopProduct';
+import CreateQuestion from '../pages/CreateQuestion';
+import Profile from '../pages/Profile';
+import PostsList from '../pages/PostsList';
+import Post from '../pages/Post';
 
 export const authOnlyRoutes = [
   {
     path: '/vacancy-create',
     component: CreateVacancy,
     navbarDisplay: false
+  },
+  {
+    path: '/question-create',
+    component: CreateQuestion,
+    navbarDisplay: false
+  },
+  {
+    path: '/profile',
+    component: Profile,
+    navbarDisplay: true,
+    navbarName: 'Profile'
   }
 ];
 export const publicOnlyRoutes = [
@@ -31,6 +45,17 @@ export const publicOnlyRoutes = [
   }
 ];
 export const publicAndAuthRoutes = [
+  {
+    path: '/news',
+    component: PostsList,
+    navbarDisplay: true,
+    navbarName: 'News'
+  },
+  {
+    path: '/news/:id',
+    component: Post,
+    navbarDisplay: false
+  },
   {
     path: '/questions',
     component: QuestionsList,

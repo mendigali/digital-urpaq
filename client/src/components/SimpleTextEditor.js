@@ -1,6 +1,4 @@
-import React, { useState } from 'react';
-import { InputLabel, OutlinedInput } from '@material-ui/core';
-import FormControl from '@material-ui/core/FormControl';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -22,16 +20,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SimpleAnswerEditor = () => {
+const SimpleTextEditor = (props) => {
   const classes = useStyles();
-  const {control, handleSubmit} = useForm();
+  const { control, handleSubmit } = useForm();
 
   const submitAnswer = (data) => {
 
-  }
+  };
   return (
     <form noValidate autoComplete="off" onSubmit={handleSubmit(submitAnswer)}>
-      {/*<TextField id="standard-basic" label="Your answer" />*/}
       <Controller
         name="text"
         control={control}
@@ -42,9 +39,8 @@ const SimpleAnswerEditor = () => {
             required
             fullWidth
             id="text"
-            label="Answer text"
-            autoComplete="email"
-            style={{marginBottom: 20, marginTop: 10}}
+            label={props.label}
+            style={{ marginBottom: 20, marginTop: 10 }}
             multiline
             rows={6}
             value={value}
@@ -53,13 +49,13 @@ const SimpleAnswerEditor = () => {
             helperText={error ? error.message : null}
           />
         )}
-        rules={{ required: 'Answer cannot be empty!' }}
+        rules={{ required: `${props.label} cannot be empty!` }}
       />
       <Button variant="contained" color="primary">
-        Submit your answer
+        {props.button}
       </Button>
     </form>
   );
 };
 
-export default SimpleAnswerEditor;
+export default SimpleTextEditor;

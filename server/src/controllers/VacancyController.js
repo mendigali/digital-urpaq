@@ -14,7 +14,7 @@ class VacancyController {
       res.status(500).json({
         success: false,
         message: 'Unknown error occurred while getting list of vacancies!',
-        errors: ['Unknown error!']
+        errors: [error.message]
       });
     }
   }
@@ -32,7 +32,7 @@ class VacancyController {
       res.status(500).json({
         success: false,
         message: 'Unknown error occurred while vacancy!',
-        errors: ['Unknown error!']
+        errors: [error.message]
       });
     }
   }
@@ -72,7 +72,7 @@ class VacancyController {
       res.status(500).json({
         success: false,
         message: 'Unknown error occurred while adding vacancy to the database!',
-        errors: ['Unknown error!']
+        errors: [error.message]
       });
     }
   }

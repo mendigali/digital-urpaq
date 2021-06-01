@@ -15,7 +15,7 @@ class AnswerController {
       res.status(500).json({
         success: false,
         message: 'Unknown error occurred while getting answers list!',
-        errors: ['Unknown error!']
+        errors: [error.message]
       });
     }
   }
@@ -33,7 +33,7 @@ class AnswerController {
       res.status(500).json({
         success: false,
         message: 'Unknown error occurred while adding answer to the database!',
-        errors: ['Unknown error!']
+        errors: [error.message]
       });
     }
   }

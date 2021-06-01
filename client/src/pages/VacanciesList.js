@@ -4,7 +4,7 @@ import VacancyCreate from '../components/VacancyCreate';
 import VacancyCardSmall from '../components/VacancyCardSmall';
 import vacancies from '../data/vacancy.json';
 import { observer } from 'mobx-react-lite';
-import { Context } from '../index';
+import { Context } from '../App';
 import Footer from '../components/Footer';
 
 const VacanciesList = observer(() => {
