@@ -109,9 +109,9 @@ We prefer kanban methodology for the project.We chose this method to help our te
 | 6 (10.05.2021-16.05.2021)  | Implement business logic of Merch on backend                 | 10.05.2021          | 16.05.2021  | Mendigali Temir         |
 |                            | Implement business logic of Merch on backend                 |                     |             | Domolakova Tolkyn       |
 |                            | Create Merch page                                            |                     |             | Shukayeva Kundyz        |
-| 7 (17.05.2021-23.05.2021)  | Create Companies page                                        | 17.05.2021          | 23.05.2021  | Mendigali Temir         |
-|                            | Implement business logic of Companies on backend             |                     |             | Domolakova Tolkyn       |
-|                            | Create Companies page                                        |                     |             | Shukayeva Kundyz        |
+| 7 (17.05.2021-23.05.2021)  | Create Profile page                                        | 17.05.2021          | 23.05.2021  | Mendigali Temir         |
+|                            | Implement business logic of Profile on backend             |                     |             | Domolakova Tolkyn       |
+|                            | Create Profile page                                        |                     |             | Shukayeva Kundyz        |
 | 8 (24.05.2021-30.05.2021)  | Implement business logic of Home page on backend             | 24.05.2021          | 30.05.2021  | Mendigali Temir         |
 |                            | Implement business logic of Home page on backend             |                     |             | Domolakova Tolkyn       |
 |                            | Create Home page                                             |                     |             | Shukayeva Kundyz        |
