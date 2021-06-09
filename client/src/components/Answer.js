@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Typography from '@material-ui/core/Typography';
 import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { coy, darcula, solarizedlight, coldarkCold, duotoneLight } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { makeStyles } from '@material-ui/core/styles';
 import Moment from 'react-moment';
+import { Context } from '../App';
 
 const useStyles = makeStyles({
   title: {
@@ -25,12 +25,13 @@ const useStyles = makeStyles({
 
 const Answer = props => {
   const classes = useStyles();
+  const { themeStore } = useContext(Context);
 
   const components = {
     code({ node, inline, className, children, ...props }) {
       const match = /language-(\w+)/.exec(className || '');
       return !inline && match ? (
-        <SyntaxHighlighter style={darcula} language={match[1]} PreTag="div"
+        <SyntaxHighlighter style={themeStore.code} language={match[1]} PreTag="div"
                            children={String(children).replace(/\n$/, '')} {...props} />
       ) : (
         <code className={className} {...props} />

@@ -10,12 +10,14 @@ import UserStore from './store/UserStore';
 import QuestionStore from './store/QuestionStore';
 import ShopStore from './store/ShopStore';
 import NewsStore from './store/NewsStore';
+import ThemeStore from './store/ThemeStore';
+import VacancyStore from './store/VacancyStore';
 
 let theme = createMuiTheme({
   palette: {
     primary: teal,
     secondary: orange,
-    type: 'dark'
+    type: window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
   }
 });
 theme = responsiveFontSizes(theme);
@@ -28,7 +30,9 @@ const App = () => {
         userStore: new UserStore(),
         questionStore: new QuestionStore(),
         shopStore: new ShopStore(),
-        newsStore: new NewsStore()
+        newsStore: new NewsStore(),
+        themeStore: new ThemeStore(),
+        vacancyStore: new VacancyStore()
       }}>
         <ThemeProvider theme={theme}>
           <BrowserRouter>

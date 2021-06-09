@@ -42,6 +42,7 @@ class VacancyController {
       const {
         is_internship,
         is_fulltime,
+        is_remote,
         is_visible = true,
         user_id,
         experience_required,
@@ -54,6 +55,7 @@ class VacancyController {
       const newVacancy = await Vacancy.create({
         is_internship,
         is_fulltime,
+        is_remote,
         is_visible,
         user_id,
         experience_required,

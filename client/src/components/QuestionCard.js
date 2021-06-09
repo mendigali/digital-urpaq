@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card, CardActions, CardContent } from '@material-ui/core';
 import Rating from '@material-ui/lab/Rating';
 import Typography from '@material-ui/core/Typography';
@@ -7,7 +7,16 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Link as RouterLink } from 'react-router-dom';
 import Link from '@material-ui/core/Link';
 import Moment from 'react-moment';
-
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import IconButton from '@material-ui/core/IconButton';
+import { QuestionAPI } from '../http';
+import { Redirect } from 'react-router-dom';
+import Dialog from '@material-ui/core/Dialog'
+import DialogActions from '@material-ui/core/DialogActions'
+import DialogContent from '@material-ui/core/DialogContent'
+import DialogContentText from '@material-ui/core/DialogContentText'
+import DialogTitle from '@material-ui/core/DialogTitle'
 const useStyles = makeStyles((theme) => ({
   root: {
     minWidth: 250,
@@ -34,11 +43,31 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'center'
   },
+  button: {
+    position: 'absolute', right: 280
+  }
 }));
 
 const QuestionCard = props => {
   const classes = useStyles();
-
+  const [question, setQuestion] = useState({});
+  const [open, setOpen] = useState(false)
+  const deleteQuestion = async () => {
+    const questionFound = await QuestionAPI.deleteOneQuestion(props.id);
+    if (questionFound.error) {
+      console.log(questionFound.error)
+    } else {
+      setOpen(false)
+      setQuestion(questionFound.data);
+    }
+  
+  };
+  const handleRequestClose = () => {
+    setOpen(false)
+  }
+  const clickButton = () => {
+    setOpen(true)
+  }
   return (
     <Card className={classes.root} key={props.id}>
       <CardContent>
@@ -60,7 +89,7 @@ const QuestionCard = props => {
             <Typography variant="body1" align="center">
               answers
             </Typography>
-          </div>
+            </div>
         </div>
       </CardContent>
       <CardActions>
@@ -70,7 +99,42 @@ const QuestionCard = props => {
         >
           View answers
         </Button>
+
+      <div className={classes.button}>
+            <IconButton
+              variant="contained"
+              color="primary"
+              style={{ textDecoration: 'none' }}
+            >
+               <EditIcon/>
+            </IconButton>
+            <IconButton
+              variant="contained"
+              color="primary"
+              style={{ textDecoration: 'none' }}
+              onClick={clickButton} 
+            >
+              <DeleteForeverIcon/>
+            </IconButton>
+            <Dialog open={open} onClose={handleRequestClose}>
+        <DialogTitle>{"Delete "+props.title}</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Confirm to delete your question "{props.title}".
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleRequestClose} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={deleteQuestion} color="secondary" autoFocus="autoFocus">
+            Confirm
+          </Button>
+        </DialogActions>
+      </Dialog>
+          </div>
       </CardActions>
+  
     </Card>
   );
 };

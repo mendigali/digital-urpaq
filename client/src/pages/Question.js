@@ -87,7 +87,7 @@ const Question = observer(() => {
       <Card className={classes.root}>
         <CardContent>
           <div className={classes.header}>
-            <Rating defaultValue={question.difficulty} precision={0.5} size="small" readOnly/>
+            <Rating value={parseFloat(question.difficulty)} precision={0.5} size="small" readOnly/>
             <Typography className={classes.title} color="textSecondary" gutterBottom>
               <Moment format="HH:mm DD/MM/YYYY" children={question.created_at}/>
             </Typography>
@@ -126,7 +126,6 @@ const Question = observer(() => {
               render={({ field: { onChange, value }} ) => (
                 <TextField
                   variant="outlined"
-                  required
                   fullWidth
                   label="Your answer"
                   style={{ marginBottom: 20, marginTop: 10 }}

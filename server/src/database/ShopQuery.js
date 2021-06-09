@@ -14,13 +14,19 @@ module.exports = class ShopQuery {
 
   async getAll() {
     const sql = 'SELECT * FROM product ORDER BY updated_at DESC';
-    const questions = await this.connection.query(sql);
-    return questions.rows;
+    const products = await this.connection.query(sql);
+    return products.rows;
   }
 
   async getById(id) {
     const sql = 'SELECT * FROM product WHERE id=$1';
-    const question = await this.connection.query(sql, [id]);
-    return question.rows[0];
+    const product = await this.connection.query(sql, [id]);
+    return product.rows[0];
+  }
+
+  async deleteById(id) {
+    const sql = 'DELETE FROM product WHERE id=$1';
+    const product = await this.connection.query(sql, [id]);
+    return product.rows[0];
   }
 }
