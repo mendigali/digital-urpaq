@@ -36,7 +36,23 @@ class QuestionController {
       });
     }
   }
-
+  async deleteOne(req, res) {
+    try {
+      const { id } = req.params;
+      const product = await Question.deleteById(id);
+      res.json({
+        success: true,
+        message: 'Successfully deleted one question!',
+        data: product
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: 'Unknown error occurred while getting question list!',
+        errors: [error.message]
+      });
+    }
+  }
   async create(req, res) {
     try {
       const { title, text, user_id, difficulty } = req.body;

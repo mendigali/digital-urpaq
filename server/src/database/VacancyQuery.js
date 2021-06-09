@@ -19,6 +19,7 @@ module.exports = class VacancyQuery {
     const {
       is_internship,
       is_fulltime,
+      is_remote,
       is_visible = true,
       user_id,
       experience_required,
@@ -29,11 +30,11 @@ module.exports = class VacancyQuery {
       salary_max
     } = vacancy;
     const sql = `insert into vacancy
-        (is_internship, is_fulltime, is_visible, experience_required, title,
+        (is_internship, is_fulltime, is_remote, is_visible, experience_required, title,
         description, location, salary_min, salary_max, user_id, created_at, updated_at)
         values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING *`;
     const date = new Date().toISOString();
-    const data = [is_internship, is_fulltime, is_visible, experience_required, title,
+    const data = [is_internship, is_fulltime, is_remote, is_visible, experience_required, title,
       description, location, salary_min, salary_max, user_id, date, date];
     const newVacancy = await this.connection.query(sql, data);
     return newVacancy.rows[0];

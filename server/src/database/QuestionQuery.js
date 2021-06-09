@@ -23,4 +23,9 @@ module.exports = class QuestionQuery {
     const question = await this.connection.query(sql, [id]);
     return question.rows[0];
   }
+  async deleteById(id) {
+    const sql = 'DELETE FROM question WHERE id=$1';
+    const question = await this.connection.query(sql, [id]);
+    return question.rows[0];
+  }
 }

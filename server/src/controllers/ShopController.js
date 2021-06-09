@@ -39,6 +39,25 @@ class ShopController {
     }
   }
 
+  
+  async deleteOne(req, res) {
+    try {
+      const { id } = req.params;
+      const product = await Shop.deleteById(id);
+      res.json({
+        success: true,
+        message: 'Successfully deleted one product!',
+        data: product
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: 'Unknown error occurred while getting products list!',
+        errors: [error.message]
+      });
+    }
+  }
+
   async create(req, res) {
     try {
       const { name, description, price, is_available = true } = req.body;
