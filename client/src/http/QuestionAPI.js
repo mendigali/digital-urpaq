@@ -30,4 +30,12 @@ export default class QuestionAPI {
       return error.response.data;
     }
   }
+  async deleteOneQuestion(id) {
+    try {
+      const axiosResponse = await this.server.delete('questions/' + id);
+      return axiosResponse.data;
+    } catch (error) {
+      return error.response.data;
+    }
+  }
 }

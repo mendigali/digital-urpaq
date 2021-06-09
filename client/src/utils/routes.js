@@ -11,7 +11,9 @@ import CreateQuestion from '../pages/CreateQuestion';
 import Profile from '../pages/Profile';
 import PostsList from '../pages/PostsList';
 import Post from '../pages/Post';
-
+import CreateNews from '../pages/CreateNews';
+import CreateProduct from '../pages/CreateProduct';
+import Cart from '../cart/Cart';
 export const authOnlyRoutes = [
   {
     path: '/vacancy-create',
@@ -19,8 +21,18 @@ export const authOnlyRoutes = [
     navbarDisplay: false
   },
   {
+    path: '/product-create',
+    component: CreateProduct,
+    navbarDisplay: false
+  },
+  {
     path: '/question-create',
     component: CreateQuestion,
+    navbarDisplay: false
+  },
+  {
+    path: '/news-create',
+    component: CreateNews,
     navbarDisplay: false
   },
   {
@@ -88,6 +100,12 @@ export const publicAndAuthRoutes = [
     path: '/shop/:id',
     component: ShopProduct,
     navbarDisplay: false
+  },
+  {
+    path: '/cart',
+    component: Cart,
+    navbarDisplay: true,
+    navbarName: 'Cart'
   }
   /*{
     path: '/notfound',

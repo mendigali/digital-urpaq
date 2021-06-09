@@ -141,7 +141,6 @@ const CreateQuestion = () => {
               render={({ field: { onChange, value }, fieldState: { error } }) => (
                 <TextField
                   variant="outlined"
-                  required
                   fullWidth
                   id="text"
                   label="Question description"

@@ -5,7 +5,7 @@ import { observer } from 'mobx-react-lite';
 import Footer from '../components/Footer';
 import { NewsAPI } from '../http';
 import PostCard from '../components/PostCard';
-
+import NewsCreate from '../components/NewsCreate';
 const PostsList = observer(() => {
   const { newsStore, userStore } = useContext(Context);
 
@@ -18,9 +18,9 @@ const PostsList = observer(() => {
 
   return (
     <Container maxWidth="md">
-      {/*{userStore.isAuth === true && <QuestionCreate/>}*/}
+      {userStore.isAuth === true && <NewsCreate/>}
       {
-        newsStore.questions.map(({ id, title, created_at }) => (
+        newsStore.posts.map(({ id, title, created_at }) => (
           <PostCard
             key={id}
             id={id}
