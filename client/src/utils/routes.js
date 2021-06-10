@@ -13,6 +13,7 @@ import PostsList from '../pages/PostsList';
 import Post from '../pages/Post';
 import CreateNews from '../pages/CreateNews';
 import CreateProduct from '../pages/CreateProduct';
+import EditQuestion from '../components/EditQuestion';
 import Cart from '../cart/Cart';
 export const authOnlyRoutes = [
   {
@@ -33,6 +34,11 @@ export const authOnlyRoutes = [
   {
     path: '/news-create',
     component: CreateNews,
+    navbarDisplay: false
+  },
+  {
+    path: '/questions-edit/:id',
+    component: EditQuestion,
     navbarDisplay: false
   },
   {

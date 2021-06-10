@@ -6,5 +6,5 @@ const router = express.Router();
 router.get('/', NewsController.getAll);
 router.get('/:id', NewsController.getOne);
 router.post('/', NewsController.create);
-
+router.delete('/:id', NewsController.deleteOne);
 module.exports = router;

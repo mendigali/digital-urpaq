@@ -80,12 +80,12 @@ const CreateNews = () => {
                   defaultValue=""
                   render={({ field: { onChange, value } }) => (
                     <TextField
-                      id="Title"
+                      id="title"
                       label="Post title"
                       value={value}
                       onChange={onChange}
                       fullWidth
-                      autoComplete="Title"
+                      autoComplete="title"
                     />
                   )}
                   rules={{ required: 'Post title cannot be empty!' }}
