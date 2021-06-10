@@ -53,6 +53,7 @@ class QuestionController {
       });
     }
   }
+
   async create(req, res) {
     try {
       const { title, text, user_id, difficulty } = req.body;
@@ -61,6 +62,24 @@ class QuestionController {
         success: true,
         message: 'Successfully added question to database!',
         data: newQuestion
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: 'Unknown error occurred while inserting question to database!',
+        errors: [error.message]
+      });
+    }
+  }
+
+  async update(req, res) {
+    try {
+      const { title, text, user_id, difficulty } = req.body;
+      const updateQuestion = await Question.update({ title, text, user_id, difficulty });
+      res.json({
+        success: true,
+        message: 'Successfully added question to database!',
+        data: updateQuestion
       });
     } catch (error) {
       res.status(500).json({

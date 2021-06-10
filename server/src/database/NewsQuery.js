@@ -30,4 +30,11 @@ module.exports = class NewsQuery {
     const posts = await this.connection.query(sql);
     return posts.rows;
   }
+
+  async deleteById(id) {
+    const sql = 'DELETE FROM post WHERE id=$1';
+    const posts = await this.connection.query(sql, [id]);
+    return posts.rows[0];
+  }
+
 }

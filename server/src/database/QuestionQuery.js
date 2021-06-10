@@ -11,7 +11,15 @@ module.exports = class QuestionQuery {
     const newQuestion = await this.connection.query(sql, data);
     return newQuestion.rows[0];
   }
-
+ 
+  async update(question) {
+    const { title, text, user_id, difficulty } = question;
+    const sql = 'Update question SET title = $1, text=$2,user_id=$3,difficulty=$4,updated_at=$5 WHERE id = $6';
+    const date = new Date().toISOString();
+    const data = [title, text, user_id, difficulty, date];
+    const updateQuestion = await this.connection.query(sql, data);
+    return updateQuestion.rows[0];
+  }
   async getAll() {
     const sql = 'SELECT * FROM question ORDER BY created_at DESC';
     const questions = await this.connection.query(sql);

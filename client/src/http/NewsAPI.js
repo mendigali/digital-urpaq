@@ -30,4 +30,14 @@ export default class NewsAPI {
       return error.response.data;
     }
   }
+
+  async deleteOneNews(id) {
+    try {
+      const axiosResponse = await this.server.delete('news/' + id);
+      return axiosResponse.data;
+    } catch (error) {
+      return error.response.data;
+    }
+  }
+
 }

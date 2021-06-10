@@ -101,13 +101,14 @@ const QuestionCard = props => {
         </Button>
 
       <div className={classes.button}>
-            <IconButton
-              variant="contained"
-              color="primary"
-              style={{ textDecoration: 'none' }}
-            >
-               <EditIcon/>
-            </IconButton>
+
+      <Button
+          component={RouterLink}
+          to={`/questions-edit/${props.id}`}
+        >
+                      <EditIcon/>
+        </Button>
+
             <IconButton
               variant="contained"
               color="primary"

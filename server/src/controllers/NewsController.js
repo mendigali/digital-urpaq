@@ -54,6 +54,25 @@ class NewsController {
       });
     }
   }
+
+  async deleteOne(req, res) {
+    try {
+      const { id } = req.params;
+      const deletePost = await News.deleteById(id);
+      res.json({
+        success: true,
+        message: 'Successfully deleted one post!',
+        data: deletePost
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: 'Unknown error occurred while getting post list!',
+        errors: [error.message]
+      });
+    }
+  }
+
 }
 
 module.exports = new NewsController();
