@@ -1,23 +1,25 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import { useHistory, useParams } from 'react-router-dom';
-import { Button, CardActions, Container, Divider } from '@material-ui/core';
+import { Button, ButtonGroup, CardActions, Container, Divider } from '@material-ui/core';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import { ShopAPI } from '../http';
 import Footer from '../components/Footer';
 import ShoppingCartRoundedIcon from '@material-ui/icons/ShoppingCartRounded';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
-import { Redirect } from 'react-router-dom';
 import EditIcon from '@material-ui/icons/Edit';
-import Dialog from '@material-ui/core/Dialog'
-import DialogActions from '@material-ui/core/DialogActions'
-import DialogContent from '@material-ui/core/DialogContent'
-import DialogContentText from '@material-ui/core/DialogContentText'
-import DialogTitle from '@material-ui/core/DialogTitle'
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import { Context } from '../App';
+
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -70,24 +72,43 @@ const ShopProduct = () => {
 
   const history = useHistory();
 
+  const { cartStore } = useContext(Context);
+
   const [product, setProduct] = useState({});
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
+  const [quantity, setQuantity] = useState(0);
+
   const getProduct = async () => {
     const productFound = await ShopAPI.getOneProduct(id);
     setProduct(productFound.data);
+    setQuantity(cartStore.getQuantity(product));
   };
+
   const deleteProduct = async () => {
     const productFound = await ShopAPI.deleteOneProduct(id);
     setProduct(productFound.data);
   };
+
   const handleRequestClose = () => {
-    setOpen(false)
-  }
+    setOpen(false);
+  };
+
   const clickButton = () => {
-    setOpen(true)
-  }
+    setOpen(true);
+  };
+
+  const handleIncrement = () => {
+    cartStore.add(product);
+    setQuantity(quantity + 1);
+  };
+
+  const handleDecrement = () => {
+    cartStore.removeOne(product);
+    setQuantity(quantity - 1);
+  };
+
   useEffect(getProduct, []);
- 
+
   return (
     <Container maxWidth="lg">
       <Card className={classes.root}>
@@ -119,7 +140,7 @@ const ShopProduct = () => {
               {product.description}
             </Typography>
           </CardContent>
-          <CardActions style={{marginTop: 'auto'}}>
+          <CardActions style={{ marginTop: 'auto', display: 'flex', flexWrap: 'wrap' }}>
             <Button
               variant="contained"
               color="primary"
@@ -129,14 +150,35 @@ const ShopProduct = () => {
             >
               Back
             </Button>
-            <Button
-              variant="contained"
-              color="primary"
-              style={{ textDecoration: 'none' }}
-              endIcon={<ShoppingCartRoundedIcon/>}
-            >
-              Buy
-            </Button>
+            {
+              quantity < 1 && (
+                <Button
+                  variant="contained"
+                  color="primary"
+                  style={{ textDecoration: 'none' }}
+                  endIcon={<ShoppingCartRoundedIcon/>}
+                  onClick={handleIncrement}
+                >
+                  Buy
+                </Button>
+              )
+            }
+            {
+              quantity > 0 && (
+                <ButtonGroup aria-label="small outlined button group">
+                  <Button
+                    onClick={handleIncrement}
+                    variant="contained"
+                    color="primary">+</Button>
+                  <Button
+                    variant="contained"
+                    color="primary">{quantity}</Button>
+                  <Button onClick={handleDecrement}
+                          variant="contained"
+                          color="primary">-</Button>
+                </ButtonGroup>
+              )
+            }
             <Button
               variant="contained"
               color="primary"
@@ -154,22 +196,35 @@ const ShopProduct = () => {
             >
               Delete
             </Button>
+            {/*<TextField*/}
+            {/*  variant={'outlined'}*/}
+            {/*  type="number"*/}
+            {/*  size="small"*/}
+            {/*  style={{width: '7rem'}}*/}
+            {/*  InputProps={{*/}
+            {/*    inputProps: {*/}
+            {/*      min: 1*/}
+            {/*    }*/}
+            {/*  }}*/}
+            {/*  label="Quantity"*/}
+            {/*/>*/}
+
             <Dialog open={open} onClose={handleRequestClose}>
-              <DialogTitle>{"Delete "+product.name}</DialogTitle>
+              <DialogTitle>{'Delete ' + product.name}</DialogTitle>
               <DialogContent>
                 <DialogContentText>
                   Confirm to delete your question "{product.name}".
-                  </DialogContentText>
-                  </DialogContent>
-                  <DialogActions>
-                    <Button onClick={handleRequestClose} color="primary">
-                      Cancel
-                    </Button>
-                    <Button onClick={deleteProduct} color="secondary" autoFocus="autoFocus">
-                      Confirm
-                      </Button>
-                  </DialogActions>
-              </Dialog>
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleRequestClose} color="primary">
+                  Cancel
+                </Button>
+                <Button onClick={deleteProduct} color="secondary" autoFocus="autoFocus">
+                  Confirm
+                </Button>
+              </DialogActions>
+            </Dialog>
           </CardActions>
         </div>
       </Card>

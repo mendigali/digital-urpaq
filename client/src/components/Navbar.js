@@ -8,8 +8,9 @@ import { Link } from 'react-router-dom';
 import { authOnlyRoutes, publicAndAuthRoutes, publicOnlyRoutes } from '../utils/routes';
 import { Context } from '../App';
 import { observer } from 'mobx-react-lite';
-import { Box, Divider, IconButton, List, ListItem, ListItemText, SwipeableDrawer } from '@material-ui/core';
+import { Badge, Box, Divider, IconButton, List, ListItem, ListItemText, SwipeableDrawer } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
+import Cart from '../cart/Cart';
 
 const useStyles = makeStyles({
   menuButton: {
@@ -34,7 +35,7 @@ const useStyles = makeStyles({
 const Navbar = observer(() => {
   const classes = useStyles();
 
-  const { userStore } = useContext(Context);
+  const { userStore, cartStore } = useContext(Context);
 
   const [state, setState] = React.useState({
     top: false,
@@ -87,6 +88,14 @@ const Navbar = observer(() => {
             />
           </ListItem>
         )}
+        <ListItem button component={Link}
+                  to={'/cart'}>
+          <Badge color="secondary" badgeContent={cartStore.count}>
+            <ListItemText
+              primary={'Cart'}
+            />
+          </Badge>
+        </ListItem>
       </List>
 
       {/*<List>*/}
@@ -158,6 +167,14 @@ const Navbar = observer(() => {
               {navbarName}
             </Button>
           )}
+          <Badge color="secondary" badgeContent={cartStore.count}>
+            <Button
+              className={classes.menuButton}
+              component={Link}
+              to={'/cart'}>
+              {'Cart'}
+            </Button>
+          </Badge>
         </Box>
       </Toolbar>
     </AppBar>

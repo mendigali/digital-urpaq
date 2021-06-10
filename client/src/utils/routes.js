@@ -104,7 +104,7 @@ export const publicAndAuthRoutes = [
   {
     path: '/cart',
     component: Cart,
-    navbarDisplay: true,
+    navbarDisplay: false,
     navbarName: 'Cart'
   }
   /*{

@@ -12,6 +12,7 @@ import ShopStore from './store/ShopStore';
 import NewsStore from './store/NewsStore';
 import ThemeStore from './store/ThemeStore';
 import VacancyStore from './store/VacancyStore';
+import CartStore from './store/CartStore';
 
 let theme = createMuiTheme({
   palette: {
@@ -32,7 +33,8 @@ const App = () => {
         shopStore: new ShopStore(),
         newsStore: new NewsStore(),
         themeStore: new ThemeStore(),
-        vacancyStore: new VacancyStore()
+        vacancyStore: new VacancyStore(),
+        cartStore: new CartStore()
       }}>
         <ThemeProvider theme={theme}>
           <BrowserRouter>

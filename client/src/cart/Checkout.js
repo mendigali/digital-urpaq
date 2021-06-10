@@ -83,7 +83,7 @@ export default function Checkout (){
         <TextField id="country" label="Country" className={classes.addressField} value={values.checkoutDetails.delivery_address.country} onChange={handleAddressChange('country')} margin="normal"/>
         <br/> {
             values.error && (<Typography component="p" color="error">
-                <Icon color="error" className={classes.error}>error</Icon>
+                <Icon color="error">error</Icon>
                 {values.error}</Typography>)
           }
         <div>
