@@ -144,11 +144,11 @@ As in the previous week,cards were created for each vacancy. By selecting one of
 
 The last task was to develop the backend and link to the frontend.With the help of the backend, you can add vacancies and they are added to the database.After linking backend with frontend, you can see that only after authorization can a person create vacancies and add questions ,and if not, then only read it.
 
-##Overview
+## Overview
 
-##About your team 
+## About your team 
 
-##Members and their roles 
+## Members and their roles 
 
 Web application development involves so many different tasks that it is almost impossible to imagine that one person can perform each of them professionally. This is why a successful web application development project needs a good team.
 As we know, a web application always has at least two components: the backend and the frontend. 
@@ -156,29 +156,29 @@ In our team, Kundyz took on the role of a frontend developer. Her work consisted
 Tolkyn took on the role of the backend developer. She was developed in Node js, using the Express framework and the PostgreSQL database.
 Temir assumed the role of a leader who took responsibility for making the most important decisions and participated in both the development of the interface and the development of the backend.
 
-##Communication strategy 
+## Communication strategy 
 
 As we know now, due to the pandemic, we did not have the opportunity to meet in person. However, we solved this problem and first made an online meeting in the discord app,then switched to Microsoft Teams. We suggested ideas in correspondence, but discussed them, chose and voted for the best idea during online meetings. After we selected the idea, we continued to discuss how we can improve and implement this idea. And during online meetings, we chose the website design together and wrote the code.
 
-##Motivation 
+## Motivation 
 
 The project, called DIGITAL URPAQ, creates favorable conditions for the formation of innovative activities. This website can help not only professionals and beginners find their place in the IT world. Users write here interesting materials on different topics and can read other topics. Here you can ask questions and get answers, discuss current topics, look for a job or freelance, without leaving the vastness of one site. Thus, it will facilitate the transition of the economy to an innovative type of development.
 
-##High-level project scope 
+## High-level project scope 
 
 This is a completely brand new site,we created everything from scratch. First of all, of course, we decided on what we will program and what libraries we will use and what database we will use. After that, we came up with the design of the site and the design of each page, and wondered how it should look, what functions to add and where they should stand, and then the creation process began. During the creation, we discussed how we can improve and what else we can add or remove. After such stages, this site was created.
 
-##Target audience/market 
+## Target audience/market 
 
 The information will be available to everyone who wants to become a part of the innovation community of Kazakhstan. Anyone can get the opportunity to develop their IT startup idea, attracting domestic and foreign investors with their project. Also, domestic IT companies, experts and mentors will be involved in the development of corporate innovations and interaction with young IT companies and the formation of a young generation of entrepreneurs.
 
-##Project goals and team interests
+## Project goals and team interests
 
-##Project goals 
+## Project goals 
 
 The goal of the project is to create a technology park, which includes organizing and conducting educational events and courses for training, retraining and advanced training in the form of courses, seminars and master classes with the involvement of IT specialists, providing possible jobs, implementing proposed start-up projects and attracting investors, as well as purchasing merchandise. The project was aimed at developing and improving the culture of innovation in Kazakhstan. During 10 intensive weeks, unfortunately, we were not able to implement everything that was planned: conducting educational events and placing courses, implementing startup projects. However, the main goals were achieved. On the Digital Urpaq website, you can post and find vacancies and internships; read news and events in the IT field; ask questions about programming and IT in general, and users and moderators will give answers; site users can purchase exclusive Digital Urpaq merch at favorable prices.
 
-##Team interests
+## Team interests
 
 1. Understanding the React js and CSS framework by developing a front-end site
 2. Understanding the concept of website development
@@ -188,7 +188,7 @@ The goal of the project is to create a technology park, which includes organizin
 6. Establish an understanding of the principles of website design
 7. Improve teamwork skills especially in remote format
 
-##Phases
+## Phases
 
 Below are the phases of creating a Digital Urpaq website from scratch:
 
@@ -200,9 +200,9 @@ Phase-3: Work out the back-end for better site functionality
 
 Phase-4: Connecting the API to connect the front-end and back-end
 
-##Content structure
+## Content structure
 
-##Content types
+## Content types
 
 A website contains 6 main pages:
 News blog
@@ -219,25 +219,25 @@ Login/Profile
 
 The news blog page is the main page where users can read or share interesting material on various topics. The Q&A page, where you can ask questions about IT and get answers to them. The Vacancy page will help you find the job you need, and for the employer to search for employees by creating vacancies on this page.The Merch/Shop and Cart page here you can see our exclusive merch and by clicking on the view button you can view the full information and by clicking on the buy button you can add to the cart and buy them.And of course the Login page here you can register or if you have an account you can log in to your page.
 
-##Design 
+## Design 
 
 Website design: some pages were drawn by yourself and at the bottom you can see these drawings, and some were inspired from other sites such as astanahub,vc.ru.
               
 Based on the opinion of "Simple is the best", we tried to create a design that is very simple and at the same time pleasant in the style of minimalism.The design was created based on the Material UI library. We used conventional typography and contrasting colors such as green, orange, yellow, and so on. And now our site has a dark and light theme for general convenience.
 
-##Functionality
+## Functionality
 
 For more functionality, users must register or log in to the site. To register, you need to fill in 3 fields: username, e-mail, and password. All fields go through validation and enter data into the database. During authorization, the data is also checked for validity and for the presence of data in the database. In order to ask a user a question or answer a question, add a vacancy or respond to it, you need to register or log in to the site. In addition, when a user adds a product to the cart, they can increase the quantity of the selected product. Moreover, for certain users, the admin status is awarded, which allows you to edit, delete and add posts, questions, vacancies, products in the online store.
 
-##Hosting
+## Hosting
 
 In our project, we used Github pages. We uploaded files to Github using the terminal, Github Desktop, and directly to the IDE. To open the project on your device, download the archived ZIP file and open the project in the IDE. Then launch the terminal, type "npm install" and press ENTER to download the package. Then type "npm start", press ENTER and your server will start from the localhost 3000.
 
-##Accessibility
+## Accessibility
 
 Our site is accessible to everyone, as a user-friendly interface was used. The website design is very simple and intuitive for people of all ages. For better readability, we used dark text on a light background and vice versa. Black-and-white diagrams simplify the perception of text and shapes for people with color blindness. Also, for the text, the Roboto font is used, which is the most accessible for everyone. Roboto uses simplified characters which stand apart from each other and appear easier to read for users with dyslexia and visual impairment. Site is available on both computers and mobile devices.
 
-##Summary
+## Summary
 
 Most of the goals set at the initial stage of the development of the website concept were implemented. The team created a multifunctional website with placement and response to vacancies, a blog of news and events in the IT field, a question-answer section and the sale of our own named merch. With help of this experience in project development, we improved our skills in teamwork, programming, and finding the necessary information.
 We encountered some difficulties when developing the project. Basically, the challenges were when writing the front-end of the site code, these are some separate parts of the page. For example, we found it difficult to add a function button to the product card, where we could immediately increase the quantity of a particular product. After some time of fixing bugs, it was decided that such a button will only be in the store basket itself.
