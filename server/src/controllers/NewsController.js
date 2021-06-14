@@ -37,6 +37,24 @@ class NewsController {
     }
   }
 
+  async update(req, res) {
+    try {
+      const { id } = req.params;
+      const post = await News.update(id, {...req.body});
+      res.json({
+        success: true,
+        message: 'Successfully updated one post!',
+        data: post
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: 'Unknown error occurred while updating post!',
+        errors: [error.message]
+      });
+    }
+  }
+
   async create(req, res) {
     try {
       const { author_id, title, content, is_visible } = req.body;

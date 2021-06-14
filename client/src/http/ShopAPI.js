@@ -23,8 +23,11 @@ export default class ShopAPI {
 
   async create(user_id, product) {
     try {
-      const { title, text,price } = product;
-      const axiosResponse = await this.server.post('shop/', { title, text, user_id,price });
+      const axiosResponse = await this.server.post('shop/', product, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
       return axiosResponse.data;
     } catch (error) {
       return error.response.data;

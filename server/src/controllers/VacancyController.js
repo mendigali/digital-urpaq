@@ -37,6 +37,42 @@ class VacancyController {
     }
   }
 
+  async delete(req, res) {
+    try {
+      const { id } = req.params;
+      const vacancy = await Vacancy.delete(id);
+      res.json({
+        success: true,
+        message: 'Successfully deleted one vacancy!',
+        data: vacancy
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: 'Unknown error occurred while vacancy!',
+        errors: [error.message]
+      });
+    }
+  }
+
+  async update(req, res) {
+    try {
+      const { id } = req.params;
+      const vacancy = await Vacancy.update(id, req.body);
+      res.json({
+        success: true,
+        message: 'Successfully updated one vacancy!',
+        data: vacancy
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: 'Unknown error occurred while vacancy!',
+        errors: [error.message]
+      });
+    }
+  }
+
   async create(req, res) {
     try {
       const {
@@ -45,7 +81,7 @@ class VacancyController {
         is_remote,
         is_visible = true,
         user_id,
-        experience_required,
+        experience,
         title,
         description,
         location,
@@ -58,7 +94,7 @@ class VacancyController {
         is_remote,
         is_visible,
         user_id,
-        experience_required,
+        experience,
         title,
         description,
         location,

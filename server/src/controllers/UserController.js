@@ -19,10 +19,14 @@ class UserController {
           errors: ['Invalid password!']
         });
       }
+      const personalInfo = await User.getPersonalInfo(user.id);
       return res.json({
         success: true,
         message: 'User successfully logged in!',
-        data: user
+        data: {
+          ...user,
+          personal: personalInfo || null
+        }
       });
     } catch (error) {
       return res.status(500).json({
@@ -50,6 +54,42 @@ class UserController {
         success: true,
         message: 'User created successfully',
         data: newUser
+      });
+    } catch (error) {
+      return res.status(500).json({
+        success: false,
+        message: 'Unknown error occurred while user login!',
+        errors: [error.message]
+      });
+    }
+  }
+
+  async addPersonal(req, res) {
+    try {
+      const { id } = req.params;
+      const personalInfo = await User.addPersonalInfo({ ...req.body, user_id: id });
+      return res.json({
+        success: true,
+        message: 'Personal info successfully added!',
+        data: personalInfo
+      });
+    } catch (error) {
+      return res.status(500).json({
+        success: false,
+        message: 'Unknown error occurred while user login!',
+        errors: [error.message]
+      });
+    }
+  }
+
+  async updatePersonal(req, res) {
+    try {
+      const { id } = req.params;
+      const personalInfo = await User.update(id, req.body);
+      return res.json({
+        success: true,
+        message: 'Personal info successfully updated!',
+        data: personalInfo
       });
     } catch (error) {
       return res.status(500).json({

@@ -16,6 +16,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { Context } from '../App';
 import { UserAPI } from '../http';
 import AuthErrors from '../components/AuthErrors';
+import LoginForm from '../components/LoginForm';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -39,11 +40,11 @@ const useStyles = makeStyles((theme) => ({
 
 const SignIn = () => {
   const classes = useStyles();
-
+  const { userStore } = useContext(Context);
+/*
   const { control, handleSubmit } = useForm();
   const [loginErrors, setLoginErrors] = useState([]);
 
-  const { userStore } = useContext(Context);
 
   const signIn = async (data) => {
     const user = await UserAPI.login(data);
@@ -56,7 +57,7 @@ const SignIn = () => {
       userStore.setUser(user.data);
       localStorage.setItem('user', JSON.stringify(user.data));
     }
-  };
+  };*/
 
   if (userStore.isAuth) {
     return <Redirect to="/news"/>;
@@ -71,7 +72,8 @@ const SignIn = () => {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form className={classes.form} noValidate onSubmit={handleSubmit(signIn)}>
+        <LoginForm/>
+        {/*<form className={classes.form} noValidate onSubmit={handleSubmit(signIn)}>
           {loginErrors.length > 0 && <AuthErrors errors={loginErrors}/>}
           <Controller
             name="username"
@@ -133,7 +135,7 @@ const SignIn = () => {
               </Link>
             </Grid>
           </Grid>
-        </form>
+        </form>*/}
       </div>
       <Footer/>
     </Container>

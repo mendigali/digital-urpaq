@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Container from '@material-ui/core/Container';
 import QuestionCard from '../components/QuestionCard';
 import { Context } from '../App';
@@ -6,9 +6,11 @@ import { observer } from 'mobx-react-lite';
 import Footer from '../components/Footer';
 import QuestionCreate from '../components/QuestionCreate';
 import { AnswerAPI, QuestionAPI } from '../http';
+import { LinearProgress } from '@material-ui/core';
 
 const QuestionsList = observer(() => {
   const { questionStore, userStore } = useContext(Context);
+  const [loading, setLoading] = useState(true);
 
   const getQuestions = async () => {
     let questionsFromDb = await QuestionAPI.getAll();
@@ -18,11 +20,12 @@ const QuestionsList = observer(() => {
       question.amountOfAnswers = answers.amount;
     }
     questionStore.setQuestions(questionsFromDb.data);
+    setLoading(false);
   };
 
   useEffect(getQuestions, []);
 
-  return (
+  return (loading ? <LinearProgress color="secondary"/> :
     <Container maxWidth="md">
       {userStore.isAuth === true && <QuestionCreate/>}
       {

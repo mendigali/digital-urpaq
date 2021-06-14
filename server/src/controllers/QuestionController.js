@@ -74,11 +74,11 @@ class QuestionController {
 
   async update(req, res) {
     try {
-      const { title, text, user_id, difficulty } = req.body;
-      const updateQuestion = await Question.update({ title, text, user_id, difficulty });
+      const { id } = req.params;
+      const updateQuestion = await Question.update(id, req.body);
       res.json({
         success: true,
-        message: 'Successfully added question to database!',
+        message: 'Successfully updated question!',
         data: updateQuestion
       });
     } catch (error) {

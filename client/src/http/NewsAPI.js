@@ -21,10 +21,19 @@ export default class NewsAPI {
     }
   }
 
-  async create(post) {
+  async create(author_id, post) {
     try {
-      const { author_id, title, content } = post;
+      const { title, content } = post;
       const axiosResponse = await this.server.post('news/', { author_id, title, content });
+      return axiosResponse.data;
+    } catch (error) {
+      return error.response.data;
+    }
+  }
+
+  async update(id, post) {
+    try {
+      const axiosResponse = await this.server.put('news/' + id, post);
       return axiosResponse.data;
     } catch (error) {
       return error.response.data;

@@ -30,15 +30,16 @@ export default class QuestionAPI {
       return error.response.data;
     }
   }
-  async update(user_id,id,question) {
+
+  async update(id, question) {
     try {
-      const { title, text, difficulty } = question;
-      const axiosResponse = await this.server.put('questions/'+id, { title, text, user_id, difficulty });
+      const axiosResponse = await this.server.put('questions/' + id, question);
       return axiosResponse.data;
     } catch (error) {
       return error.response.data;
     }
   }
+
   async deleteOneQuestion(id) {
     try {
       const axiosResponse = await this.server.delete('questions/' + id);

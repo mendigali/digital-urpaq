@@ -15,6 +15,11 @@ import CreateNews from '../pages/CreateNews';
 import CreateProduct from '../pages/CreateProduct';
 import EditQuestion from '../components/EditQuestion';
 import Cart from '../cart/Cart';
+import UpdateNews from '../pages/UpdateNews';
+import UpdateVacancy from '../pages/UpdateVacancy';
+import UpdateQuestion from '../pages/UpdateQuestion';
+import CreatePersonal from '../pages/CreatePersonal';
+import UpdatePersonal from '../pages/UpdatePersonal';
 export const authOnlyRoutes = [
   {
     path: '/vacancy-create',
@@ -46,7 +51,32 @@ export const authOnlyRoutes = [
     component: Profile,
     navbarDisplay: true,
     navbarName: 'Profile'
-  }
+  },
+  {
+    path: '/news/update/:id',
+    component: UpdateNews,
+    navbarDisplay: false
+  },
+  {
+    path: '/vacancy/update/:id',
+    component: UpdateVacancy,
+    navbarDisplay: false
+  },
+  {
+    path: '/question/update/:id',
+    component: UpdateQuestion,
+    navbarDisplay: false
+  },
+  {
+    path: '/profile/create',
+    component: CreatePersonal,
+    navbarDisplay: false
+  },
+  {
+    path: '/profile/update/:id',
+    component: UpdatePersonal,
+    navbarDisplay: false
+  },
 ];
 export const publicOnlyRoutes = [
   {

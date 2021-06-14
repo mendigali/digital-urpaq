@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Container from '@material-ui/core/Container';
 import { AnswerAPI, QuestionAPI } from '../http';
-import { Card, CardContent, Divider } from '@material-ui/core';
+import { Card, CardContent, Divider, LinearProgress } from '@material-ui/core';
 import Rating from '@material-ui/lab/Rating';
 import Typography from '@material-ui/core/Typography';
 import Moment from 'react-moment';
@@ -58,6 +58,7 @@ const Question = observer(() => {
 
   const [question, setQuestion] = useState({});
   const [answers, setAnswers] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const { control, handleSubmit, reset } = useForm();
   const { userStore } = useContext(Context);
@@ -67,6 +68,7 @@ const Question = observer(() => {
     const answersFound = await AnswerAPI.getByQuestionId(id);
     setAnswers(answersFound.data);
     setQuestion(questionFound.data);
+    setLoading(false);
   };
 
   const addAnswer = async (data) => {
@@ -82,7 +84,7 @@ const Question = observer(() => {
 
   useEffect(getQuestion, []);
 
-  return (question &&
+  return (loading ? <LinearProgress color="secondary"/> :
     <Container maxWidth="md">
       <Card className={classes.root}>
         <CardContent>
@@ -105,11 +107,11 @@ const Question = observer(() => {
             Answers: {answers.length}
           </Typography>
           {
-            answers && answers.map(({ id, user_id, text, created_at }) => (
+            answers && answers.map(({ id, username, text, created_at }) => (
               <>
                 <Answer
                   key={id}
-                  username={user_id}
+                  username={username}
                   body={text}
                   date={created_at}
                 />
@@ -117,28 +119,30 @@ const Question = observer(() => {
               </>
             ))
           }
-          <Typography variant="h5" className={classes.answersAmount} children={'Your answer:'}/>
-          <form noValidate onSubmit={handleSubmit(addAnswer)}>
-            <Controller
-              name="text"
-              control={control}
-              defaultValue=""
-              render={({ field: { onChange, value }} ) => (
-                <TextField
-                  variant="outlined"
-                  fullWidth
-                  label="Your answer"
-                  style={{ marginBottom: 20, marginTop: 10 }}
-                  multiline
-                  rows={6}
-                  value={value}
-                  onChange={onChange}
-                />
-              )}
-              rules={{ required: 'Answer cannot be empty!' }}
-            />
-            <Button variant="contained" color="primary" type="submit" children={'Submit answer'}/>
-          </form>
+          {userStore.isAuth && (<>
+            <Typography variant="h5" className={classes.answersAmount} children={'Your answer:'}/>
+            <form noValidate onSubmit={handleSubmit(addAnswer)}>
+              <Controller
+                name="text"
+                control={control}
+                defaultValue=""
+                render={({ field: { onChange, value } }) => (
+                  <TextField
+                    variant="outlined"
+                    fullWidth
+                    label="Your answer"
+                    style={{ marginBottom: 20, marginTop: 10 }}
+                    multiline
+                    rows={6}
+                    value={value}
+                    onChange={onChange}
+                  />
+                )}
+                rules={{ required: 'Answer cannot be empty!' }}
+              />
+              <Button variant="contained" color="primary" type="submit" children={'Submit answer'}/>
+            </form>
+          </>)}
         </CardContent>
       </Card>
       <Footer/>

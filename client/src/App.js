@@ -26,25 +26,23 @@ export const Context = createContext(null);
 
 const App = () => {
   return (
-    <React.StrictMode>
-      <Context.Provider value={{
-        userStore: new UserStore(),
-        questionStore: new QuestionStore(),
-        shopStore: new ShopStore(),
-        newsStore: new NewsStore(),
-        themeStore: new ThemeStore(),
-        vacancyStore: new VacancyStore(),
-        cartStore: new CartStore()
-      }}>
-        <ThemeProvider theme={theme}>
-          <BrowserRouter>
-            <CssBaseline/>
-            <Navbar/>
-            <AppRouter/>
-          </BrowserRouter>
-        </ThemeProvider>
-      </Context.Provider>
-    </React.StrictMode>
+    <Context.Provider value={{
+      userStore: new UserStore(),
+      questionStore: new QuestionStore(),
+      shopStore: new ShopStore(),
+      newsStore: new NewsStore(),
+      themeStore: new ThemeStore(),
+      vacancyStore: new VacancyStore(),
+      cartStore: new CartStore()
+    }}>
+      <ThemeProvider theme={theme}>
+        <BrowserRouter>
+          <CssBaseline/>
+          <Navbar/>
+          <AppRouter/>
+        </BrowserRouter>
+      </ThemeProvider>
+    </Context.Provider>
   );
 };
 

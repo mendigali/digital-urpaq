@@ -119,7 +119,6 @@ const CreateQuestion = () => {
                 <Controller
                   name="title"
                   control={control}
-                  defaultValue=""
                   render={({ field: { onChange, value } }) => (
                     <TextField
                       id="Title"

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Container from '@material-ui/core/Container';
 import { Context } from '../App';
 import { observer } from 'mobx-react-lite';
@@ -6,17 +6,20 @@ import Footer from '../components/Footer';
 import { NewsAPI } from '../http';
 import PostCard from '../components/PostCard';
 import NewsCreate from '../components/NewsCreate';
+import { LinearProgress } from '@material-ui/core';
 const PostsList = observer(() => {
   const { newsStore, userStore } = useContext(Context);
+  const [loading, setLoading] = useState(true);
 
   const getPosts = async () => {
     let posts = await NewsAPI.getAll();
     newsStore.setPosts(posts.data);
+    setLoading(false);
   };
 
   useEffect(getPosts, []);
 
-  return (
+  return (loading ? <LinearProgress color="secondary"/> :
     <Container maxWidth="md">
       {userStore.isAuth === true && <NewsCreate/>}
       {

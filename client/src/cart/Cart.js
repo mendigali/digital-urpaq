@@ -4,11 +4,16 @@ import { makeStyles } from '@material-ui/core/styles';
 import CartItems from './CartItems';
 
 import Checkout from './Checkout';
+import Container from '@material-ui/core/Container';
+import Footer from '../components/Footer';
 
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
     margin: 30,
+  },
+  outer: {
+    padding: 20
   }
 }));
 
@@ -20,19 +25,20 @@ export default function Cart() {
     setCheckout(val);
   };
 
-  return (<div className={classes.root}>
-    <Grid container spacing={8}>
-      <Grid item xs={6} sm={6}>
-        <CartItems checkout={checkout}
-                   setCheckout={showCheckout}/>
+  return (
+    // <div className={classes.root}>
+    <Container maxWidth="sm" className={classes.outer}>
+      <Grid container>
+        <Grid item xs={12}>
+          <CartItems checkout={checkout} setCheckout={showCheckout}/>
+        </Grid>
+        {checkout &&
+        <Grid item xs={12}>
+          <Checkout/>
+        </Grid>}
       </Grid>
-      {checkout &&
-      <Grid item xs={6} sm={6}>
-
-        <Checkout/>
-
-      </Grid>}
-    </Grid>
-  </div>
+      <Footer/>
+    </Container>
+    // </div>
   );
 }

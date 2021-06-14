@@ -30,27 +30,36 @@ module.exports = class UserQuery {
       second_name,
       middle_name,
       date_of_birth,
-      works_at_id,
-      photo,
       user_id
     } = info;
     const sql = `
         INSERT INTO personal_info 
-        (first_name, second_name, middle_name, date_of_birth, works_at_id, photo, user_id, created_at, updated_at) 
-        values ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *`;
+        (first_name, second_name, middle_name, date_of_birth,user_id, created_at, updated_at) 
+        values ($1, $2, $3, $4, $5, $6, $7) RETURNING *`;
     const date = new Date().toISOString();
     const data = [
       first_name,
       second_name,
       middle_name,
       date_of_birth,
-      works_at_id,
-      photo,
       user_id,
       date,
       date
     ];
     const newPersonalInfo = await this.connection.query(sql, data);
+    return newPersonalInfo.rows[0];
+  }
+
+  async update(id, info) {
+    const sql = 'UPDATE personal_info SET first_name=$1, second_name=$2, middle_name=$3, date_of_birth=$4, updated_at=$5 WHERE user_id=$6';
+    const newPersonalInfo = await this.connection.query(sql, [
+      info.first_name,
+      info.second_name,
+      info.middle_name,
+      info.date_of_birth,
+      new Date().toISOString(),
+      id
+    ]);
     return newPersonalInfo.rows[0];
   }
 

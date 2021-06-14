@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Container from '@material-ui/core/Container';
 import { NewsAPI } from '../http';
-import { Card, CardContent, Divider } from '@material-ui/core';
+import { Card, CardContent, Divider, LinearProgress } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import Moment from 'react-moment';
 import { makeStyles } from '@material-ui/core/styles';
@@ -34,15 +34,17 @@ const Question = observer(() => {
   const { id } = useParams();
 
   const [post, setPost] = useState({});
+  const [loading, setLoading] = useState(true);
 
   const getPost = async () => {
     const postFromDb = await NewsAPI.getOne(id);
     setPost(postFromDb.data);
+    setLoading(false);
   };
 
   useEffect(getPost, []);
 
-  return (post &&
+  return (loading ? <LinearProgress color="secondary"/> :
     <Container maxWidth="md">
       <Card className={classes.root}>
         <CardContent>

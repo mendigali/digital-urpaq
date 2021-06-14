@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import BackgroundImage from '../assets/shop-background-square-min.jpg';
-import { Paper } from '@material-ui/core';
+import { LinearProgress, Paper } from '@material-ui/core';
 import { ShopAPI } from '../http';
 import { Context } from '../App';
 import { observer } from 'mobx-react-lite';
@@ -17,6 +17,8 @@ import Footer from '../components/Footer';
 import { Link as RouterLink } from 'react-router-dom';
 import TrendingFlatRoundedIcon from '@material-ui/icons/TrendingFlatRounded';
 import ShoppingCartRoundedIcon from '@material-ui/icons/ShoppingCartRounded';
+import RemoveShoppingCartRoundedIcon from '@material-ui/icons/RemoveShoppingCartRounded';
+import AddRoundedIcon from '@material-ui/icons/AddRounded';
 
 const useStyles = makeStyles((theme) => ({
   heroContent: {
@@ -66,16 +68,22 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+
 const Shop = observer(() => {
   const classes = useStyles();
 
-  const { shopStore, themeStore } = useContext(Context);
+  const { userStore, shopStore, themeStore, cartStore } = useContext(Context);
+  const [products, setProducts] = useState([]);
+  const [cart, setCart] = useState(cartStore.cart);
+  const [loading, setLoading] = useState(true);
 
   const getProducts = async () => {
     const response = await ShopAPI.getAllProducts();
-    if (response.success) {
-      shopStore.setProducts(response.data);
-    }
+    // if (response.success) {
+    // shopStore.setProducts(response.data);
+    setProducts(response.data);
+    setLoading(false);
+    // }
   };
 
   const myRef = useRef(null);
@@ -84,7 +92,46 @@ const Shop = observer(() => {
 
   useEffect(getProducts, []);
 
-  return (
+  /*  const [open, setOpen] = useState(false);
+
+    const onBuy = () => {
+      if (userStore.isAuth) {
+
+      }
+      setOpen(true);
+    };
+    const onClose = () => {
+      setOpen(false);
+    };*/
+
+  const handleRemove = (product) => {
+    cartStore.removeOne(product);
+    setCart(cartStore.cart);
+  };
+  const handleBuy = (product) => {
+    console.log(product);
+    cartStore.add(product);
+    setCart(cartStore.cart);
+  };
+
+  const productAction = (product) => {
+    if (cart.find(item => item.product.id === product.id)) {
+      return (
+        <Button size="medium" color="secondary" variant="contained" startIcon={<RemoveShoppingCartRoundedIcon/>}
+                onClick={() => handleRemove(product)}>
+          Remove
+        </Button>
+      );
+    }
+    return (
+      <Button size="medium" color="primary" variant="contained" startIcon={<ShoppingCartRoundedIcon/>}
+              onClick={() => handleBuy(product)}>
+        Buy
+      </Button>
+    );
+  };
+
+  return (loading ? <LinearProgress color="secondary"/> :
     <React.Fragment>
       <div className={classes.heroContent}>
         <Container maxWidth="md">
@@ -98,12 +145,15 @@ const Shop = observer(() => {
             </Typography>
             <div className={classes.heroButtons}>
               <Grid container spacing={2} justify="center">
-                <Grid item>
-                <Button variant="contained" color="primary" size={'large'} component={RouterLink} to={`/product-create`}>
-                    Create products
-                  </Button>
-                  </Grid>
+                {userStore.isAuth && (
                   <Grid item>
+                    <Button variant="contained" color="primary" size={'large'} component={RouterLink}
+                            to={`/product-create`} endIcon={<AddRoundedIcon/>}>
+                      Create products
+                    </Button>
+                  </Grid>
+                )}
+                <Grid item>
                   <Button variant="contained" color="primary" size={'large'} onClick={executeScroll}
                           endIcon={<TrendingFlatRoundedIcon/>}>
                     View products
@@ -116,36 +166,38 @@ const Shop = observer(() => {
       </div>
       <Container className={classes.cardGrid} maxWidth="lg" ref={myRef}>
         <Grid container spacing={3}>
-          {shopStore.products.map(({id, image, name, description, price}) => (
-            <Grid item key={id} xs={12} sm={6} md={4} id={id}>
+          {products.map(product => (
+            <Grid item key={product.id} xs={12} sm={6} md={4} id={product.id}>
               <Card className={classes.card}>
                 <CardMedia
                   className={classes.cardMedia}
-                  image={`http://localhost:7000/${image}`}
-                  title={name}
+                  image={`http://localhost:7000/${product.image}`}
+                  title={product.name}
                 />
                 {/*<div className={classes.imgOuter}>
                   <img src={`http://localhost:5000/${product.image}`} alt="" className={classes.imgInner}/>
                 </div>*/}
                 <CardContent className={classes.cardContent}>
                   <Typography variant="subtitle1">
-                    Price: ₸{price}
+                    Price: ₸{product.price}
                   </Typography>
                   <Typography gutterBottom variant="h5" component="h2">
-                    {name}
+                    {product.name}
                   </Typography>
                   <Typography>
-                    {description}
+                    {product.description}
                   </Typography>
                 </CardContent>
                 <CardActions className={classes.cardActions}>
                   <Button size="medium" color="primary" variant="text" component={RouterLink}
-                          to={`/shop/${id}`}>
+                          to={`/shop/${product.id}`}>
                     View
                   </Button>
-                  <Button size="medium" color="primary" variant="contained" startIcon={<ShoppingCartRoundedIcon/>}>
-                    Buy
-                  </Button>
+                  {productAction(product)}
+                  {/*<Button size="medium" color="secondary" variant="contained" startIcon={<RemoveShoppingCartRoundedIcon/>}*/}
+                  {/*        onClick={handleRemove}>*/}
+                  {/*  Remove*/}
+                  {/*</Button>*/}
                 </CardActions>
               </Card>
             </Grid>

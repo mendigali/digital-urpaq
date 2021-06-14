@@ -4,7 +4,7 @@ module.exports = class AnswerQuery {
   }
 
   async getAll(id) {
-    const sql = 'SELECT * FROM answer WHERE question_id = $1';
+    const sql = 'SELECT * FROM answer JOIN user_account on answer.user_id = user_account.id WHERE question_id = $1';
     const answers = await this.connection.query(sql, [id]);
     return answers.rows;
   }
